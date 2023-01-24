@@ -31,10 +31,10 @@
 
 // set pin numbers for switch, joystick axes, and LED:
 const int mouseButton = 15;  // input pin for the mouse pushButton
-const int buttonD = 10;          
-const int buttonS = 16;
-const int buttonW = 14;   
-const int buttonA = 9;
+const int buttonD = 9;          
+const int buttonS = 14;
+const int buttonW = 16;   
+const int buttonA = 10;
 const int xAxis = A0;       // joystick X axis
 const int yAxis = A1;       // joystick Y axis
 
