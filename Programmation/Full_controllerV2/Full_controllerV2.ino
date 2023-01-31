@@ -30,7 +30,7 @@
 
 
 // set pin numbers for switch, joystick axes, and LED:
-const int mouseButton = 2;  // input pin for the mouse pushButton
+const int mouseButton = 15;  // input pin for the mouse pushButton
 const int buttonD = 9;          
 const int buttonS = 14;
 const int buttonW = 16;   
@@ -88,11 +88,11 @@ void loop() {
 
   
   //replace button press with a left mouse click
-  if (mouseButtonState == LOW && previousMouseButtonState == HIGH) {
+  if (mouseButtonState == HIGH && previousMouseButtonState == LOW) {
       // and it's currently pressed:
     Mouse.press(MOUSE_LEFT);
   }
-  if (mouseButtonState == HIGH && previousMouseButtonState == LOW) {
+  if (mouseButtonState == LOW && previousMouseButtonState == HIGH) {
       // and it's currently pressed:
     Mouse.release(MOUSE_LEFT);
   }
