@@ -12,7 +12,7 @@
  
 #include <ESP8266WiFi.h>
 const char WiFiPassword[] = "12345678";
-const char AP_NameChar[] = "LEDControl" ;
+const char AP_NameChar[] = "Manette Adapté" ;
  
 WiFiServer server(80);
  
