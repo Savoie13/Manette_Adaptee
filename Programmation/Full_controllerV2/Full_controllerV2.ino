@@ -98,7 +98,7 @@ void loop() {
   }
   
   //replaces button press with D
-  if (buttonStateD == HIGH && previousButtonStateD == HIGH) {
+  if (buttonStateD == HIGH && previousButtonStateD == LOW) {
       // and it's currently pressed:
     Keyboard.press('d');
   }
