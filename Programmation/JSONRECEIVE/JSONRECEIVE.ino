@@ -16,7 +16,7 @@ int previousButtonStateVert = HIGH;
 int previousButtonStateBlanc = HIGH;
 int previousButtonStateJaune = HIGH;
 
-int bleu = 97;
+int bleu = 216;
 int rouge = 119;
 int vert = 122;
 int blanc = 115;
@@ -49,11 +49,11 @@ void loop()
   //replace button press with a left mouse click
   if (buttonStateVert == HIGH && previousButtonStateVert == LOW) {
       // and it's currently pressed:
-    Mouse.press(MOUSE_LEFT);
+    Keyboard.press(vert);
   }
   if (buttonStateVert == LOW && previousButtonStateVert == HIGH) {
       // and it's currently pressed:
-    Mouse.release(MOUSE_LEFT);
+    Keyboard.release(vert);
   }
   
   //replaces button press with D
