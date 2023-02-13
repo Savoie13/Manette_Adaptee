@@ -18,6 +18,7 @@
 </table>
 
 <img src="https://coluxrecruitment.com/wp-content/uploads/2017/05/Video-Game-Controller-Icon.svg_.png"
+style="width:2.65278in;height:3.80833in" />
 
 # Sommaire
 
