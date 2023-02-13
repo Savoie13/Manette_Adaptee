@@ -1,7 +1,7 @@
-| Jackob et Mathis                                |
-|-------------------------------------------------|
-| jmWifi-Manette                                  |
-| Configuration manette à l'aide d'un site web    |
+| Jackob et Mathis                                      |
+|-------------------------------------------------------|
+| jmWifi-Manette                                        |
+| Configuration de la manette à l'aide d'un site web    |
 
 <table>
 <colgroup>
