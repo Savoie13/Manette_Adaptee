@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        margin: 10px 0;
+      }
+
+      .rectangle {
+        width: 80px;
+        height: 60px;
+        background-color: gray;
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .dropdown {
+        width: 83px;
+        height: 25px;
+        border: 1px solid black;
+        text-align: center;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h2>Boutons</h2>
+      </div>
+      <div class="row">
+        <div class="rectangle" style="background-color: blue;">1</div>
+        <div class="rectangle" style="background-color: red;">2</div>
+        <div class="rectangle" style="background-color: green;">3</div>
+        <div class="rectangle" style="background-color: white;">4</div>
+        <div class="rectangle" style="background-color: yellow;">5</div>
+      </div>
+      <div class="row">
+        <select name="bleu" id="bleu" class="dropdown">
+		<optgroup label="Lettre">
+          <option value="w">W</option>
+          <option value="a">A</option>
+          <option value="s">S</option>
+          <option value="d">D</option>
+          <option value="e">E</option>
+		</optgroup>
+		<optgroup label="Chiffre">
+		  <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+		 </optgroup>
+		 <optgroup label="Souris">
+          <option value="3001">Clic G</option>
+          <option value="3002">Clic D</option>
+		 </optgroup>
+		 <optgroup label="Fleche">
+		  <option value="218">Haut</option>
+          <option value="217">Bas</option>
+          <option value="216">Gauche</option>
+          <option value="215">Droite</option>
+		 </optgroup>
+        </select>
+        <select name="rouge" id="rouge" class="dropdown">
+		<optgroup label="Lettre">
+          <option value="w">W</option>
+          <option value="a">A</option>
+          <option value="s">S</option>
+          <option value="d">D</option>
+          <option value="e">E</option>
+		</optgroup>
+		<optgroup label="Chiffre">
+		  <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+		 </optgroup>
+		 <optgroup label="Fleche">
+		  <option value="218">Haut</option>
+          <option value="217">Bas</option>
+          <option value="216">Gauche</option>
+          <option value="215">Droite</option>
+		 </optgroup>
+        </select>
+        <select class="dropdown">
+		<optgroup label="Lettre">
+          <option value="1">W</option>
+          <option value="2">A</option>
+          <option value="3">S</option>
+          <option value="4">D</option>
+          <option value="5">E</option>
+		</optgroup>
+		<optgroup label="Chiffre">
+		  <option value="6">1</option>
+          <option value="7">2</option>
+          <option value="8">3</option>
+          <option value="9">4</option>
+          <option value="10">5</option>
+		 </optgroup>
+        </select>
+        <select class="dropdown">
+		<optgroup label="Lettre">
+          <option value="1">W</option>
+          <option value="2">A</option>
+          <option value="3">S</option>
+          <option value="4">D</option>
+          <option value="5">E</option>
+		</optgroup>
+		<optgroup label="Chiffre">
+		  <option value="6">1</option>
+          <option value="7">2</option>
+          <option value="8">3</option>
+          <option value="9">4</option>
+          <option value="10">5</option>
+		 </optgroup>
+        </select>
+        <select class="dropdown">
+		<optgroup label="Lettre">
+          <option value="1">W</option>
+          <option value="2">A</option>
+          <option value="3">S</option>
+          <option value="4">D</option>
+          <option value="5">E</option>
+		</optgroup>
+		<optgroup label="Chiffre">
+		  <option value="6">1</option>
+          <option value="7">2</option>
+          <option value="8">3</option>
+          <option value="9">4</option>
+          <option value="10">5</option>
+		 </optgroup>
+        </select>
+      </div>
+
+	  <div class="row">
+		<button type="button" id="saveBtn">Save</button>
+		<button type="button">Cancel</button>
+		<input type="text" id="selectedValue">
+	  </div>
+    </div>
+	<script>
+    document.getElementById("saveBtn").addEventListener("click", function() {
+      var selectedValue = document.getElementById("bleu").value + " " + document.getElementById("rouge").value;
+      document.getElementById("selectedValue").value = selectedValue;
+    });
+  </script>
+</body>
+</html>
