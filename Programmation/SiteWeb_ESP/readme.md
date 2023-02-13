@@ -1,7 +1,7 @@
-| Jackob et Mathis                                |
-|-------------------------------------------------|
-| jmWifi-Manette                                  |
-| Configuration manette à l'aide d'un site web    |
+| Jackob et Mathis                                      |
+|-------------------------------------------------------|
+| jmWifi-Manette                                        |
+| Configuration de la manette à l'aide d'un site web    |
 
 <table>
 <colgroup>
@@ -17,9 +17,8 @@
 </tbody>
 </table>
 
-<img src="./img/media/image1.jpeg"
-style="width:2.65278in;height:3.80833in" /><img src="./img/media/image2.png"
-style="width:4.05694in;height:3.80833in" />
+<img src="https://coluxrecruitment.com/wp-content/uploads/2017/05/Video-Game-Controller-Icon.svg_.png"
+style="width:2.65278in;height:3.80833in" />
 
 # Sommaire
 
