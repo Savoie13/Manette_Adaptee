@@ -1,180 +1,240 @@
 /*
-  Full_controller
+  Manette_Adaptée
 
-  Controls the mouse from a joystick and keyboard keys (A,W,S,D) with boutons on an Arduino Leonardo, Micro or Due.
+  Manette de jeux vidéo à l'ordinateur pour les personnes à mobilitées réduites ou ayant un handicap cognitif leur empêchant d'utiliser une manette standard.
   
-  Uses the joystick's push button to click the left mouse button.
-
+  Contrôle le curseur d'ordinateur avec un joystick et contrôle différentes touches du clavier et les boutons de la souris avec des boutons
+    branchés sur Arduino Pro Micro. Contrôle aussi la réception de JSON arrivant sur son deuxième port série Serial1 pour modifier le
+    fonctionnement de ses boutons. Les boutons de la manette sont préconfigurés de manière à ce qu'elle soit déja fonctionnelle pour la 
+    plupart des jeux sans utiliser la fonction de configuration externe par JSON. 
+    
   Hardware:
-  - 2-axis joystick connected to pins A0 and A1
-  - 5 pushbuttons connected to pin D15, D10, D14, D9 and D16
+  - Arduino Micro Pro.
+  - Cable micro USB.
+  - 5 boutons branchés au pattes D10, D16, D15, D14 et D9 du Arduino Pro Micro.
+  - Joystick 2 axes branché au pattes A0 et A1 du Arduino Pro Micro.
+  - 5 résistances de 10K.
 
-  The mouse movement is always relative. This sketch reads two analog inputs
-  that range from 0 to 1023 (or less on either end) and translates them into
-  ranges of -6 to 6.
-  The sketch assumes that the joystick resting values are around the middle of
-  the range, but that they vary within a threshold.
+  Fonctionnement du joystick: 
+    Le programme lit ses entrées analogiques A0 et A1 variants de 0 à 1023 et 
+    converti ces valeurs entre -6 et 6. Quand la valeur des deux axes est 0,
+    le curseur arrête de bouger et lorsque ces valeurs sont supérieurs à 0 le
+    curseur bouge en fonction de la librairie Mouse.h. 
 
-  WARNING: When you use the Mouse.move() command, the Arduino takes over your
-  mouse! Make sure you have control before you use the command. This sketch
-  includes a pushbutton to toggle the mouse control state, so you can turn on
-  and off mouse control.
+  Fonctionnement des boutons:
+    Avec les entrées digitales configurées en entrées, le programme détecte
+    lorsque les boutons sont appuyés et fait un Keyboard.press() de la valeur
+    ASCII qui à été préalablement configuré pour ce bouton. Un Keyboard.release()
+    est ensuite fait lorsque le bouton est relâché pour empêché que la touche
+    du clavier soit encore appuyée. De plus, quand la valeur configuré pour le 
+    bouton est en dessous de 3, le programme fait un Mouse.press() du clic
+    gauche (1) ou du clic droit (2) de la souris au lieu d'un Keyboard.press()
+    et puis fait unu Mouse.release().
+
+  Fonctionnement de la réception de JSON:
+    Le programme détecte lorsque que quelque chose est envoyé sur le port Serial1
+    (TX1 et RX1). Il vérifie si c'est un JSON valide et renvoie un message d'erreur 
+    sur le port série USB si ce n'en ai pas un. Si le JSON est valide il est séparé 
+    et les valeurs décimales sont mises dans les variables des boutons et seront les 
+    nouvelles valeurs des boutons. Par exemple, si la nouvelle valeur de la variable
+    "bleu" est 48, le bouton bleu contrôlera la touche "1" du clavier.
 
   created 12/12/2022
-  updated 12/12/2022
+  updated 14/02/2023
   by Mathis Savoie
 */
 
-#include "Mouse.h"
-#include "Keyboard.h"
-#include <ArduinoJson.h>
+#include "Mouse.h"            //librairie pour le contrôle du curseur de la souris et ses boutons.
+#include "Keyboard.h"         //librairie pour le contrôle du clavier de l'ordinateur.
+#include <ArduinoJson.h>      //Librairie pour la réception et le décodage de JSON.
 
-// set pin numbers for switch, joystick axes, and LED:
+// Numéros de pattes pour les boutons et le joystick
 const int boutonBleu = 10;
 const int boutonRouge = 16;
 const int boutonVert = 15;
 const int boutonBlanc = 14;
 const int boutonJaune = 9;
+const int xAxis = A0;       // axe X du joystick
+const int yAxis = A1;       // axe Y du joystick
 
-const int xAxis = A0;       // joystick X axis
-const int yAxis = A1;       // joystick Y axis
+// Paramètres pour la lecture du joystick
+int range = 12;             // range de valeurs pour le contrôle du curseur
+int responseDelay = 5;      // délai de réponse de la souris en ms
+int threshold = range / 4;  // seuil du joystick
+int center = range / 2;     // valeur du joystick quand il ne bouge pas
 
-// parameters for reading the joystick:
-int range = 12;             // output range of X or Y movement
-int responseDelay = 5;      // response delay of the mouse, in ms
-int threshold = range / 4;  // resting threshold
-int center = range / 2;     // resting position value
-
-bool mouseIsActive = true;  // whether or not to control the mouse
-
+//dernière état des boutons
 int previousButtonStateBleu = HIGH; 
 int previousButtonStateRouge = HIGH;
 int previousButtonStateVert = HIGH;
 int previousButtonStateBlanc = HIGH;
 int previousButtonStateJaune = HIGH;
 
-int bleu = 97;
-int rouge = 119;
-int vert = 32;
-int blanc = 115;
-int jaune = 100;
+//paramètres de base des boutons
+int bleu = 'a';
+int rouge = 'w';
+int vert = 1;     //1 pour le clic gauche de la souris
+int blanc = 's';
+int jaune = 'd';
 
 void setup() {
-  //declare the buttons as input_pullup
+  //déclare les boutons en entrée pullup
   pinMode(boutonBleu, INPUT_PULLUP);
   pinMode(boutonRouge, INPUT_PULLUP);
   pinMode(boutonVert, INPUT_PULLUP);
   pinMode(boutonBlanc, INPUT_PULLUP);
   pinMode(boutonJaune, INPUT_PULLUP);
   
-  // take control of the mouse:
+  //Prend contrôle de la souris
   Mouse.begin(); 
-  //take control of the keyboard
+  //Prend contrôle du Clavier
   Keyboard.begin();
   
-  Serial1.begin(9600);
-  delay(5000);
+  Serial1.begin(9600);        //démarre le port série 1 pour la réception de JSONs
+  delay(5000);                //délai de 5 seconde au démarrage de la manette. Aide pour Mouse.h et Keyboard.h
 }
 
 void loop() {   
-  // read and scale the two axes:
+  // Lit et met à l'échelle les axes
   int xReading = readAxis(A0);
   int yReading = readAxis(A1);
   
-  //checking the state of the button
+  //vérifie l'état des boutons
   int buttonStateBleu = digitalRead(boutonBleu);
   int buttonStateRouge = digitalRead(boutonRouge);
   int buttonStateVert = digitalRead(boutonVert);
   int buttonStateBlanc = digitalRead(boutonBlanc);
   int buttonStateJaune = digitalRead(boutonJaune);
   
-  // if the mouse control state is active, move the mouse:
-  if (mouseIsActive) 
+  Mouse.move(xReading, yReading, 0);                  //bouge le curseur en fonction de la position du joystick
+  
+  //Si le bouton bleu est appuyé
+  if (buttonStateBleu == HIGH && previousButtonStateBleu == LOW) 
   {
-    Mouse.move(xReading, yReading, 0);
+    if(bleu > 3)              //si le bouton contrôle les boutons du clavier
+      Keyboard.press(bleu);
+    else                      //si le bonton contrôle les boutons de la souris
+      Mouse.press(bleu);
   }
-
+  //Si le bouton bleu n'est plus appuyé
+  if (buttonStateBleu == LOW && previousButtonStateBleu == HIGH) 
+  {
+    // and it's currently pressed:
+    if(bleu > 3)              //si le bouton contrôle les boutons du clavier
+      Keyboard.release(bleu);
+    else                      //si le bonton contrôle les boutons de la souris
+      Mouse.release(bleu);
+  }
   
-  //replace button press with a left mouse click
-  if (buttonStateBleu == HIGH && previousButtonStateBleu == LOW) {
-      // and it's currently pressed:
-    Keyboard.press(bleu);
+  //Si le bouton rouge est appuyé
+  if (buttonStateRouge == HIGH && previousButtonStateRouge == LOW) 
+  {
+    // and it's currently pressed:
+    if(rouge > 3)              //si le bouton contrôle les boutons du clavier
+      Keyboard.press(rouge);
+    else                      //si le bonton contrôle les boutons de la souris
+      Mouse.press(rouge);  
   }
-  if (buttonStateBleu == LOW && previousButtonStateBleu == HIGH) {
-      // and it's currently pressed:
-    Keyboard.release(bleu);
+  //Si le bouton rouge n'est plus appuyé
+  if (buttonStateRouge == LOW && previousButtonStateRouge == HIGH) 
+  {
+    // and it's currently released:
+    if(rouge > 3)              //si le bouton contrôle les boutons du clavier
+      Keyboard.release(rouge);
+    else                      //si le bonton contrôle les boutons de la souris
+      Mouse.release(rouge);
   }
   
-  //replaces button press with D
-  if (buttonStateRouge == HIGH && previousButtonStateRouge == LOW) {
-      // and it's currently pressed:
-    Keyboard.press(rouge);
+  //Si le bouton vert est appuyé
+  if (buttonStateVert == HIGH && previousButtonStateVert == LOW) 
+  {
+    // and it's currently pressed:
+    if(vert > 3)              //si le bouton contrôle les boutons du clavier
+      Keyboard.press(vert);
+    else                      //si le bonton contrôle les boutons de la souris
+      Mouse.press(vert);
   }
-  if (buttonStateRouge == LOW && previousButtonStateRouge == HIGH) {
+  //Si le bouton vert n'est plus appuyé
+  if (buttonStateVert == LOW && previousButtonStateVert == HIGH) 
+  {
+    // and it's currently released:
+    if(vert > 3)              //si le bouton contrôle les boutons du clavier
+      Keyboard.release(vert);
+    else                      //si le bonton contrôle les boutons de la souris
+      Mouse.release(vert);
+  }
+  
+  //Si le bouton blanc est appuyé
+  if (buttonStateBlanc == HIGH && previousButtonStateBlanc == LOW) 
+  {
+    // and it's currently pressed:
+    if(blanc > 3)              //si le bouton contrôle les boutons du clavier
+      Keyboard.press(blanc);
+    else                      //si le bonton contrôle les boutons de la souris
+      Mouse.press(blanc);
+  }
+  //Si le bouton blanc n'est plus appuyé
+  if (buttonStateBlanc == LOW && previousButtonStateBlanc == HIGH) 
+  {
+    // and it's currently released:
+    if(blanc > 3)              //si le bouton contrôle les boutons du clavier
+      Keyboard.release(blanc);
+    else                      //si le bonton contrôle les boutons de la souris
+      Mouse.release(blanc);
+  }
+  
+  //Si le bouton jaune est appuyé
+   if (buttonStateJaune == HIGH && previousButtonStateJaune == LOW) 
+   {
+      // and it's currently pressed:
+     if(jaune > 3)              //si le bouton contrôle les boutons du clavier
+       Keyboard.press(jaune);
+     else                      //si le bonton contrôle les boutons de la souris
+       Mouse.press(jaune);
+  }
+  //Si le bouton jaune n'est plus appuyé
+  if (buttonStateJaune == LOW && previousButtonStateJaune == HIGH) 
+  {
       // and it's currently released:
-    Keyboard.release(rouge);
+    if(jaune > 3)              //si le bouton contrôle les boutons du clavier
+      Keyboard.release(jaune);
+    else                      //si le bonton contrôle les boutons de la souris
+      Mouse.release(jaune);
   }
   
-  //replaces button press with S
-  if (buttonStateVert == HIGH && previousButtonStateVert == LOW) {
-      // and it's currently pressed:
-    Keyboard.press(vert);
-  }
-  if (buttonStateVert == LOW && previousButtonStateVert == HIGH) {
-      // and it's currently released:
-    Keyboard.release(vert);
-  }
-  
-  //replaces button press with W
-  if (buttonStateBlanc == HIGH && previousButtonStateBlanc == LOW) {
-      // and it's currently pressed:
-    Keyboard.press(blanc);
-  }
-  if (buttonStateBlanc == LOW && previousButtonStateBlanc == HIGH) {
-      // and it's currently released:
-    Keyboard.release(blanc);
-  }
-  
-  //replaces button press with A
-   if (buttonStateJaune == HIGH && previousButtonStateJaune == LOW) {
-      // and it's currently pressed:
-    Keyboard.press(jaune);
-  }
-  if (buttonStateJaune == LOW && previousButtonStateJaune == HIGH) {
-      // and it's currently released:
-    Keyboard.release(jaune);
-  }
-
+  //Enregistre le dernier état des boutons
   previousButtonStateBleu = buttonStateBleu;
   previousButtonStateRouge = buttonStateRouge;
   previousButtonStateVert = buttonStateVert;
   previousButtonStateBlanc = buttonStateBlanc;
   previousButtonStateJaune = buttonStateJaune;
 
-  if (Serial1.available()) 
+
+  if (Serial1.available())  //si quelque chose est reçu sur le port série 1
   {
-    // Read the incoming JSON data from the serial connection
+    //Lit le JSON et le met dans la variable jsonString
     String jsonString = Serial1.readStringUntil('\n');
 
-    // Allocate a buffer for the JSON object
+    //Alloue un buffer pour l'objet JSON
     StaticJsonDocument<200> doc;
 
-    // Parse the JSON data and store it in the buffer
+    //Sépare le JSON et le met dans le buffer
     DeserializationError error = deserializeJson(doc, jsonString);
-    if (error) 
+    
+    if (error)  //si il n'arrive pas à séparer le JSON
     {
-      Serial.println("Error parsing JSON data");
+      Serial.println("Error parsing JSON data");    //envoie un message d'erreur sur le port série USB
       return;
     }
 
-    // Extract the data from the JSON object
+    //Va chercher les valeurs dans le JSON pour les mettre dans les variables des boutons
     bleu = doc["bleu"];
     rouge = doc["rouge"];
     vert = doc["vert"];
     blanc = doc["blanc"];
     jaune = doc["jaune"];
 
-    // Use the extracted data as needed
+    //Affiche les nouvelles valeurs des boutons sur le port série USB
     Serial.print("Bouton bleu: ");
     Serial.println(bleu);
     Serial.print("Bouton rouge: ");
@@ -188,28 +248,26 @@ void loop() {
     
   }
   
-  delay(responseDelay);
+  delay(responseDelay);   //délai de réponse de la souris
 }
 
 /*
-  reads an axis (0 or 1 for x or y) and scales the analog input range to a range
-  from 0 to <range>
+  Lit un axe (A0 ou A1 pour X ou Y) et le met à l'échelle selon la variable "range" au début du code
 */
 
 int readAxis(int thisAxis) {
-  // read the analog input:
+  // Lit l'entrée analogique
   int reading = analogRead(thisAxis);
 
-  // map the reading from the analog input range to the output range:
+  //Met la donnée 0 à 1023 à l'échelle selon "range"
   reading = map(reading, 0, 1023, 0, range);
 
-  // if the output reading is outside from the rest position threshold, use it:
+  //S'assure que la position initiale du Joystick est 0
   int distance = reading - center;
-
   if (abs(distance) < threshold) {
     distance = 0;
   }
 
-  // return the distance for this axis:
+  //Retourne la distance entre -6 et 6 pour faire bouger le curseur
   return distance;
 }
