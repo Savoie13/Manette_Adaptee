@@ -227,7 +227,7 @@ void loop() {
       return;
     }
 
-    //Va chercher les valeurs dans le JSON pour les mettre dans les variables des boutons
+    //Va chercher les valeurs dans le JSON pour les mettre dans les variables des boutons 
     bleu = doc["bleu"];
     rouge = doc["rouge"];
     vert = doc["vert"];
