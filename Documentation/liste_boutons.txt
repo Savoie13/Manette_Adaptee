@@ -1,0 +1,49 @@
+<a href="#a" value = 97 onclick="selectOption(this, '5')">A</a>
+			<a href="#b" value = 98 onclick="selectOption(this, '5')">B</a>
+			<a href="#c" value = 99 onclick="selectOption(this, '5')">C</a>
+			<a href="#d" value = 100 onclick="selectOption(this, '5')">D</a>
+			<a href="#e" value = 101 onclick="selectOption(this, '5')">E</a>
+			<a href="#f" value = 102 onclick="selectOption(this, '5')">F</a>
+			<a href="#g" value = 103 onclick="selectOption(this, '5')">G</a>
+			<a href="#h" value = 104 onclick="selectOption(this, '5')">H</a>
+			<a href="#i" value = 105 onclick="selectOption(this, '5')">I</a>
+			<a href="#j" value = 106 onclick="selectOption(this, '5')">J</a>
+			<a href="#k" value = 107 onclick="selectOption(this, '5')">K</a>
+			<a href="#l" value = 108 onclick="selectOption(this, '5')">L</a>
+			<a href="#m" value = 109 onclick="selectOption(this, '5')">M</a>
+			<a href="#n" value = 110 onclick="selectOption(this, '5')">N</a>
+			<a href="#o" value = 111 onclick="selectOption(this, '5')">O</a>
+			<a href="#p" value = 112 onclick="selectOption(this, '5')">P</a>
+			<a href="#q" value = 113 onclick="selectOption(this, '5')">Q</a>
+			<a href="#r" value = 114 onclick="selectOption(this, '5')">R</a>
+            <a href="#s" value = 115 onclick="selectOption(this, '5')">S</a>
+			<a href="#t" value = 116 onclick="selectOption(this, '5')">T</a>
+			<a href="#u" value = 117 onclick="selectOption(this, '5')">U</a>
+			<a href="#v" value = 118 onclick="selectOption(this, '5')">V</a>
+			<a href="#w" value = 119 onclick="selectOption(this, '5')">W</a>
+			<a href="#x" value = 120 onclick="selectOption(this, '5')">X</a>
+			<a href="#y" value = 121 onclick="selectOption(this, '5')">Y</a>
+			<a href="#z" value = 122 onclick="selectOption(this, '5')">Z</a>
+            <a href="#0" value = 48 onclick="selectOption(this, '5')">0</a>
+			<a href="#1" value = 49 onclick="selectOption(this, '5')">1</a>
+            <a href="#2" value = 50 onclick="selectOption(this, '5')">2</a>
+			<a href="#3" value = 51 onclick="selectOption(this, '5')">3</a>
+			<a href="#4" value = 52 onclick="selectOption(this, '5')">4</a>
+			<a href="#5" value = 53 onclick="selectOption(this, '5')">5</a>
+			<a href="#6" value = 54 onclick="selectOption(this, '5')">6</a>
+			<a href="#7" value = 55 onclick="selectOption(this, '5')">7</a>
+			<a href="#8" value = 56 onclick="selectOption(this, '5')">8</a>
+			<a href="#9" value = 57 onclick="selectOption(this, '5')">9</a>
+            <a href="#escape" value = 27 onclick="selectOption(this, '5')">ESC</a>
+            <a href="#espace" value = 32 onclick="selectOption(this, '5')">ESPACE</a>
+            <a href="#clic gauche" value = 1 onclick="selectOption(this, '5')">Clic G</a>
+            <a href="#clic droit" value = 2 onclick="selectOption(this, '5')">Clic D</a>
+            <a href="#fleche droite" value = 215 onclick="selectOption(this, '5')">fleche droite</a>
+            <a href="#fleche gauche" value = 216 onclick="selectOption(this, '5')">fleche gauche</a>
+            <a href="#fleche haut" value = 218 onclick="selectOption(this, '5')">fleche haut</a>
+            <a href="#fleche bas" value = 217 onclick="selectOption(this, '5')">fleche bas</a>
+            <a href="#shift" value = 129 onclick="selectOption(this, '5')">Shift</a>
+			<a href="#ctrl" value = 128 onclick="selectOption(this, '5')">Ctrl</a>
+			<a href="#caps lock" value = 193 onclick="selectOption(this, '5')">Caps Lock</a>
+			<a href="#tab" value = 179 onclick="selectOption(this, '5')">Tab</a>
+			<a href="#backspace" value = 178 onclick="selectOption(this, '5')">Backspace</a>

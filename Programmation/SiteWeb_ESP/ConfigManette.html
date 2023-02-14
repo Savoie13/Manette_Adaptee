@@ -23,14 +23,68 @@
         justify-content: center;
         align-items: center;
       }
+		  /* Dropdown Button */
+	.dropbtn {
+	  background-color: #04AA6D;
+	  color: white;
+	  width: 82px;
+      height: 60px;
+	  padding: 16px;
+	  font-size: 16px;
+	  border: none;
+	  cursor: pointer;
+	}
 
-      .dropdown {
-        width: 83px;
-        height: 25px;
-        border: 1px solid black;
-        text-align: center;
-        margin-top: 10px;
-      }
+	/* Dropdown button on hover & focus */
+	.dropbtn:hover, .dropbtn:focus {
+	  background-color: #3e8e41;
+	}
+
+	/* The search field */
+	#myInput {
+	  box-sizing: border-box;
+	  background-image: url('searchicon.png');
+	  background-position: 14px 12px;
+	  background-repeat: no-repeat;
+	  font-size: 16px;
+	  padding: 14px 20px 12px 45px;
+	  border: none;
+	  border-bottom: 1px solid #ddd;
+	}
+
+	/* The search field when it gets focus/clicked on */
+	#myInput:focus {outline: 3px solid #ddd;}
+
+	/* The container <div> - needed to position the dropdown content */
+	.dropdown {
+	  position: relative;
+	  display: inline-block;
+	}
+
+	/* Dropdown Content (Hidden by Default) */
+	.dropdown-content {
+	  display: none;
+	  position: absolute;
+	  background-color: #f6f6f6;
+	  min-width: 230px;
+	  border: 1px solid #ddd;
+	  z-index: 1;
+	}
+
+	/* Links inside the dropdown */
+	.dropdown-content a {
+	  color: black;
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  display: block;
+	}
+
+	/* Change color of dropdown links on hover */
+	.dropdown-content a:hover {background-color: #f1f1f1}
+
+	/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+	.show {display:block;}
+
     </style>
   </head>
   <body>
@@ -46,104 +100,179 @@
         <div class="rectangle" style="background-color: yellow;">5</div>
       </div>
       <div class="row">
-        <select name="bleu" id="bleu" class="dropdown">
-		<optgroup label="Lettre">
-          <option value="w">W</option>
-          <option value="a">A</option>
-          <option value="s">S</option>
-          <option value="d">D</option>
-          <option value="e">E</option>
-		</optgroup>
-		<optgroup label="Chiffre">
-		  <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-		 </optgroup>
-		 <optgroup label="Souris">
-          <option value="3001">Clic G</option>
-          <option value="3002">Clic D</option>
-		 </optgroup>
-		 <optgroup label="Fleche">
-		  <option value="218">Haut</option>
-          <option value="217">Bas</option>
-          <option value="216">Gauche</option>
-          <option value="215">Droite</option>
-		 </optgroup>
-        </select>
-        <select name="rouge" id="rouge" class="dropdown">
-		<optgroup label="Lettre">
-          <option value="w">W</option>
-          <option value="a">A</option>
-          <option value="s">S</option>
-          <option value="d">D</option>
-          <option value="e">E</option>
-		</optgroup>
-		<optgroup label="Chiffre">
-		  <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-		 </optgroup>
-		 <optgroup label="Fleche">
-		  <option value="218">Haut</option>
-          <option value="217">Bas</option>
-          <option value="216">Gauche</option>
-          <option value="215">Droite</option>
-		 </optgroup>
-        </select>
-        <select class="dropdown">
-		<optgroup label="Lettre">
-          <option value="1">W</option>
-          <option value="2">A</option>
-          <option value="3">S</option>
-          <option value="4">D</option>
-          <option value="5">E</option>
-		</optgroup>
-		<optgroup label="Chiffre">
-		  <option value="6">1</option>
-          <option value="7">2</option>
-          <option value="8">3</option>
-          <option value="9">4</option>
-          <option value="10">5</option>
-		 </optgroup>
-        </select>
-        <select class="dropdown">
-		<optgroup label="Lettre">
-          <option value="1">W</option>
-          <option value="2">A</option>
-          <option value="3">S</option>
-          <option value="4">D</option>
-          <option value="5">E</option>
-		</optgroup>
-		<optgroup label="Chiffre">
-		  <option value="6">1</option>
-          <option value="7">2</option>
-          <option value="8">3</option>
-          <option value="9">4</option>
-          <option value="10">5</option>
-		 </optgroup>
-        </select>
-        <select class="dropdown">
-		<optgroup label="Lettre">
-          <option value="1">W</option>
-          <option value="2">A</option>
-          <option value="3">S</option>
-          <option value="4">D</option>
-          <option value="5">E</option>
-		</optgroup>
-		<optgroup label="Chiffre">
-		  <option value="6">1</option>
-          <option value="7">2</option>
-          <option value="8">3</option>
-          <option value="9">4</option>
-          <option value="10">5</option>
-		 </optgroup>
-        </select>
-      </div>
-
+        <div class="dropdown">
+		  <button onclick="myFunction()" class="dropbtn" id="bleuBtn">Vert</button>
+		  <div id="myDropdown" class="dropdown-content">
+			<input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+			<a href="#a" onclick="selectOption(this)">A</a>
+			<a href="#b" onclick="selectOption(this)">B</a>
+			<a href="#c" onclick="selectOption(this)">C</a>
+			<a href="#d" onclick="selectOption(this)">D</a>
+			<a href="#e" onclick="selectOption(this)">E</a>
+			<a href="#f" onclick="selectOption(this)">F</a>
+			<a href="#g" onclick="selectOption(this)">G</a>
+			<a href="#h" onclick="selectOption(this)">H</a>
+			<a href="#i" onclick="selectOption(this)">I</a>
+			<a href="#j" onclick="selectOption(this)">J</a>
+			<a href="#k" onclick="selectOption(this)">K</a>
+			<a href="#l" onclick="selectOption(this)">L</a>
+			<a href="#m" onclick="selectOption(this)">M</a>
+			<a href="#n" onclick="selectOption(this)">N</a>
+		  </div>
+		</div>
+        <div class="dropdown">
+		  <button onclick="myFunction()" class="dropbtn" id="rougeBtn">Vert</button>
+		  <div id="myDropdown" class="dropdown-content">
+			<input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+			<a href="#a" onclick="selectOption(this)">A</a>
+			<a href="#b" onclick="selectOption(this)">B</a>
+			<a href="#c" onclick="selectOption(this)">C</a>
+			<a href="#d" onclick="selectOption(this)">D</a>
+			<a href="#e" onclick="selectOption(this)">E</a>
+			<a href="#f" onclick="selectOption(this)">F</a>
+			<a href="#g" onclick="selectOption(this)">G</a>
+			<a href="#h" onclick="selectOption(this)">H</a>
+			<a href="#i" onclick="selectOption(this)">I</a>
+			<a href="#j" onclick="selectOption(this)">J</a>
+			<a href="#k" onclick="selectOption(this)">K</a>
+			<a href="#l" onclick="selectOption(this)">L</a>
+			<a href="#m" onclick="selectOption(this)">M</a>
+			<a href="#n" onclick="selectOption(this)">N</a>
+		  </div>
+		</div>
+        <div class="dropdown">
+		  <button onclick="myFunction()" class="dropbtn" id="vertBtn">Vert</button>
+		  <div id="myDropdown" class="dropdown-content">
+			<input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+			<a href="#a" onclick="selectOption(this)">A</a>
+			<a href="#b" onclick="selectOption(this)">B</a>
+			<a href="#c" onclick="selectOption(this)">C</a>
+			<a href="#d" onclick="selectOption(this)">D</a>
+			<a href="#e" onclick="selectOption(this)">E</a>
+			<a href="#f" onclick="selectOption(this)">F</a>
+			<a href="#g" onclick="selectOption(this)">G</a>
+			<a href="#h" onclick="selectOption(this)">H</a>
+			<a href="#i" onclick="selectOption(this)">I</a>
+			<a href="#j" onclick="selectOption(this)">J</a>
+			<a href="#k" onclick="selectOption(this)">K</a>
+			<a href="#l" onclick="selectOption(this)">L</a>
+			<a href="#m" onclick="selectOption(this)">M</a>
+			<a href="#n" onclick="selectOption(this)">N</a>
+		  </div>
+		</div>
+        <div class="dropdown">
+		  <button onclick="myFunction(4)" class="dropbtn" id="dropdown4">Vert</button>
+		  <div id="dropdown-content4" class="dropdown-content">
+			<input type="text" placeholder="Search.." id="myInput4" onkeyup="filterFunction(4)">
+			<a href="#a" value = 97 onclick="selectOption(this, '4')">A</a>
+			<a href="#b" value = 98 onclick="selectOption(this, '4')">B</a>
+			<a href="#c" value = 99 onclick="selectOption(this, '4')">C</a>
+			<a href="#d" value = 100 onclick="selectOption(this, '4')">D</a>
+			<a href="#e" value = 101 onclick="selectOption(this, '4')">E</a>
+			<a href="#f" value = 102 onclick="selectOption(this, '4')">F</a>
+			<a href="#g" value = 103 onclick="selectOption(this, '4')">G</a>
+			<a href="#h" value = 104 onclick="selectOption(this, '4')">H</a>
+			<a href="#i" value = 105 onclick="selectOption(this, '4')">I</a>
+			<a href="#j" value = 106 onclick="selectOption(this, '4')">J</a>
+			<a href="#k" value = 107 onclick="selectOption(this, '4')">K</a>
+			<a href="#l" value = 108 onclick="selectOption(this, '4')">L</a>
+			<a href="#m" value = 109 onclick="selectOption(this, '4')">M</a>
+			<a href="#n" value = 110 onclick="selectOption(this, '4')">N</a>
+			<a href="#o" value = 111 onclick="selectOption(this, '4')">O</a>
+			<a href="#p" value = 112 onclick="selectOption(this, '4')">P</a>
+			<a href="#q" value = 113 onclick="selectOption(this, '4')">Q</a>
+			<a href="#r" value = 114 onclick="selectOption(this, '4')">R</a>
+            <a href="#s" value = 115 onclick="selectOption(this, '4')">S</a>
+			<a href="#t" value = 116 onclick="selectOption(this, '4')">T</a>
+			<a href="#u" value = 117 onclick="selectOption(this, '4')">U</a>
+			<a href="#v" value = 118 onclick="selectOption(this, '4')">V</a>
+			<a href="#w" value = 119 onclick="selectOption(this, '4')">W</a>
+			<a href="#x" value = 120 onclick="selectOption(this, '4')">X</a>
+			<a href="#y" value = 121 onclick="selectOption(this, '4')">Y</a>
+			<a href="#z" value = 122 onclick="selectOption(this, '4')">Z</a>
+            <a href="#0" value = 48 onclick="selectOption(this, '4')">0</a>
+			<a href="#1" value = 49 onclick="selectOption(this, '4')">1</a>
+            <a href="#2" value = 50 onclick="selectOption(this, '4')">2</a>
+			<a href="#3" value = 51 onclick="selectOption(this, '4')">3</a>
+			<a href="#4" value = 52 onclick="selectOption(this, '4')">4</a>
+			<a href="#4" value = 53 onclick="selectOption(this, '4')">4</a>
+			<a href="#6" value = 54 onclick="selectOption(this, '4')">6</a>
+			<a href="#7" value = 55 onclick="selectOption(this, '4')">7</a>
+			<a href="#8" value = 56 onclick="selectOption(this, '4')">8</a>
+			<a href="#9" value = 57 onclick="selectOption(this, '4')">9</a>
+            <a href="#escape" value = 27 onclick="selectOption(this, '4')">ESC</a>
+            <a href="#espace" value = 32 onclick="selectOption(this, '4')">ESPACE</a>
+            <a href="#clic gauche" value = 1 onclick="selectOption(this, '4')">Clic G</a>
+            <a href="#clic droit" value = 2 onclick="selectOption(this, '4')">Clic D</a>
+            <a href="#fleche droite" value = 215 onclick="selectOption(this, '4')">fleche droite</a>
+            <a href="#fleche gauche" value = 216 onclick="selectOption(this, '4')">fleche gauche</a>
+            <a href="#fleche haut" value = 218 onclick="selectOption(this, '4')">fleche haut</a>
+            <a href="#fleche bas" value = 217 onclick="selectOption(this, '4')">fleche bas</a>
+            <a href="#shift" value = 129 onclick="selectOption(this, '4')">Shift</a>
+			<a href="#ctrl" value = 128 onclick="selectOption(this, '4')">Ctrl</a>
+			<a href="#caps lock" value = 193 onclick="selectOption(this, '4')">Caps Lock</a>
+			<a href="#tab" value = 179 onclick="selectOption(this, '4')">Tab</a>
+			<a href="#backspace" value = 178 onclick="selectOption(this, '4')">Backspace</a>
+		  </div>
+		</div>
+		<div class="dropdown">
+		  <button onclick="myFunction(5)" class="dropbtn" id="dropdown5">Vert</button>
+		  <div id="dropdown-content5" class="dropdown-content">
+			<input type="text" placeholder="Search.." id="myInput5" onkeyup="filterFunction(5)">
+			<a href="#a" value = 97 onclick="selectOption(this, '5')">A</a>
+			<a href="#b" value = 98 onclick="selectOption(this, '5')">B</a>
+			<a href="#c" value = 99 onclick="selectOption(this, '5')">C</a>
+			<a href="#d" value = 100 onclick="selectOption(this, '5')">D</a>
+			<a href="#e" value = 101 onclick="selectOption(this, '5')">E</a>
+			<a href="#f" value = 102 onclick="selectOption(this, '5')">F</a>
+			<a href="#g" value = 103 onclick="selectOption(this, '5')">G</a>
+			<a href="#h" value = 104 onclick="selectOption(this, '5')">H</a>
+			<a href="#i" value = 105 onclick="selectOption(this, '5')">I</a>
+			<a href="#j" value = 106 onclick="selectOption(this, '5')">J</a>
+			<a href="#k" value = 107 onclick="selectOption(this, '5')">K</a>
+			<a href="#l" value = 108 onclick="selectOption(this, '5')">L</a>
+			<a href="#m" value = 109 onclick="selectOption(this, '5')">M</a>
+			<a href="#n" value = 110 onclick="selectOption(this, '5')">N</a>
+			<a href="#o" value = 111 onclick="selectOption(this, '5')">O</a>
+			<a href="#p" value = 112 onclick="selectOption(this, '5')">P</a>
+			<a href="#q" value = 113 onclick="selectOption(this, '5')">Q</a>
+			<a href="#r" value = 114 onclick="selectOption(this, '5')">R</a>
+            <a href="#s" value = 115 onclick="selectOption(this, '5')">S</a>
+			<a href="#t" value = 116 onclick="selectOption(this, '5')">T</a>
+			<a href="#u" value = 117 onclick="selectOption(this, '5')">U</a>
+			<a href="#v" value = 118 onclick="selectOption(this, '5')">V</a>
+			<a href="#w" value = 119 onclick="selectOption(this, '5')">W</a>
+			<a href="#x" value = 120 onclick="selectOption(this, '5')">X</a>
+			<a href="#y" value = 121 onclick="selectOption(this, '5')">Y</a>
+			<a href="#z" value = 122 onclick="selectOption(this, '5')">Z</a>
+            <a href="#0" value = 48 onclick="selectOption(this, '5')">0</a>
+			<a href="#1" value = 49 onclick="selectOption(this, '5')">1</a>
+            <a href="#2" value = 50 onclick="selectOption(this, '5')">2</a>
+			<a href="#3" value = 51 onclick="selectOption(this, '5')">3</a>
+			<a href="#4" value = 52 onclick="selectOption(this, '5')">4</a>
+			<a href="#5" value = 53 onclick="selectOption(this, '5')">5</a>
+			<a href="#6" value = 54 onclick="selectOption(this, '5')">6</a>
+			<a href="#7" value = 55 onclick="selectOption(this, '5')">7</a>
+			<a href="#8" value = 56 onclick="selectOption(this, '5')">8</a>
+			<a href="#9" value = 57 onclick="selectOption(this, '5')">9</a>
+            <a href="#escape" value = 27 onclick="selectOption(this, '5')">ESC</a>
+            <a href="#espace" value = 32 onclick="selectOption(this, '5')">ESPACE</a>
+            <a href="#clic gauche" value = 1 onclick="selectOption(this, '5')">Clic G</a>
+            <a href="#clic droit" value = 2 onclick="selectOption(this, '5')">Clic D</a>
+            <a href="#fleche droite" value = 215 onclick="selectOption(this, '5')">fleche droite</a>
+            <a href="#fleche gauche" value = 216 onclick="selectOption(this, '5')">fleche gauche</a>
+            <a href="#fleche haut" value = 218 onclick="selectOption(this, '5')">fleche haut</a>
+            <a href="#fleche bas" value = 217 onclick="selectOption(this, '5')">fleche bas</a>
+            <a href="#shift" value = 129 onclick="selectOption(this, '5')">Shift</a>
+			<a href="#ctrl" value = 128 onclick="selectOption(this, '5')">Ctrl</a>
+			<a href="#caps lock" value = 193 onclick="selectOption(this, '5')">Caps Lock</a>
+			<a href="#tab" value = 179 onclick="selectOption(this, '5')">Tab</a>
+			<a href="#backspace" value = 178 onclick="selectOption(this, '5')">Backspace</a>
+		  </div>
+		</div>
+	   </div>
+	  <div class="row">
+        <h5></h5>
 	  <div class="row">
 		<button type="button" id="saveBtn">Save</button>
 		<button type="button">Cancel</button>
@@ -151,10 +280,37 @@
 	  </div>
     </div>
 	<script>
-    document.getElementById("saveBtn").addEventListener("click", function() {
-      var selectedValue = document.getElementById("bleu").value + " " + document.getElementById("rouge").value;
-      document.getElementById("selectedValue").value = selectedValue;
-    });
+	/* When the user clicks on the button,
+	toggle between hiding and showing the dropdown content */
+	function myFunction(id) {
+	  document.getElementById("dropdown-content" + id).classList.toggle("show");
+	}
+	function filterFunction(id) {
+	  var input, filter, ul, li, a, i;
+	  input = document.getElementById("myInput" + id);
+	  filter = input.value.toUpperCase();
+	  div = document.getElementById("dropdown-content" + id);
+	  a = div.getElementsByTagName("a");
+	  for (i = 0; i < a.length; i++) {
+		txtValue = a[i].textContent || a[i].innerText;
+		if (txtValue.toUpperCase().indexOf(filter) > -1) {
+		  a[i].style.display = "";
+		} else {
+		  a[i].style.display = "none";
+		}
+	  }
+	}
+	// When the user selects an option from the dropdown, update the selected value and close the dropdown
+	function selectOption(option, id) {
+	  var dropdownBtn = document.getElementById("dropdown" + id);
+	  var valeur = option.getAttribute("value");
+	  const obj = {id:id, valeur:valeur};
+	  const myJSON = JSON.stringify(obj);
+	  dropdownBtn.innerText = option.innerText;
+	  selectedValue.value = option.innerText;
+	  // https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/send
+	  myFunction(id);
+	}
   </script>
 </body>
 </html>
