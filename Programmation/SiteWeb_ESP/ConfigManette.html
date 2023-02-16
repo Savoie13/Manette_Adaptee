@@ -280,6 +280,7 @@
 	  </div>
     </div>
 	<script>
+	/* Place your JavaScript in this file */
 	/* When the user clicks on the button,
 	toggle between hiding and showing the dropdown content */
 	function myFunction(id) {
@@ -306,10 +307,28 @@
 	  var valeur = option.getAttribute("value");
 	  const obj = {id:id, valeur:valeur};
 	  const myJSON = JSON.stringify(obj);
+      var wsMA = "ws://" + location.host + "/"; // pour ESP8266
+	  const ws = new WebSocket(wsMA);
+
+	  ws.onopen = () => {
+		ws.send(myJSON);
+		console.log("JSON : " + myJSON);
+		serialSend(myJSON);
+	  };
+
+	  ws.onerror = (error) => {
+		console.log('WebSocket error: ', error);
+	  };
 	  dropdownBtn.innerText = option.innerText;
 	  selectedValue.value = option.innerText;
-	  // https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/send
 	  myFunction(id);
+	}
+	function serialSend(JSON) {
+	  await port.open({baudRate: 9600});
+	  const encoder = new TextEncoder();
+		const writer = port.writable.getWriter();
+		await writer.write(encoder.encode(JSON));
+		writer.releaseLock();
 	}
   </script>
 </body>
