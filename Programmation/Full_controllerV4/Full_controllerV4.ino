@@ -11,9 +11,9 @@
   Hardware:
   - Arduino Micro Pro.
   - Cable micro USB.
-  - 5 boutons branchés au pattes D10, D16, D15, D14 et D9 du Arduino Pro Micro.
+  - 1 à 14 boutons branchés au pattes D2, D3, D4, D5, D6, D7, D8, D9, D10, D14, D15, D16, D20, D20 du Arduino Pro Micro. Le code fonctionne peut importe le nombre de boutons utilisés.
   - Joystick 2 axes branché au pattes A0 et A1 du Arduino Pro Micro.
-  - 5 résistances de 10K.
+  - 14 résistances de pulldown de 10KΩ branchées sur les 14 entrées digitales citées plus haut.
 
   Fonctionnement du joystick: 
     Le programme lit ses entrées analogiques A0 et A1 variants de 0 à 1023 et 
@@ -26,13 +26,13 @@
     lorsque les boutons sont appuyés et fait un Keyboard.press() de la valeur
     ASCII qui à été préalablement configuré pour ce bouton. Un Keyboard.release()
     est ensuite fait lorsque le bouton est relâché pour empêché que la touche
-    du clavier soit encore appuyée. De plus, quand la valeur configuré pour le 
+    du clavier "reste collée". De plus, quand la valeur configuré pour le 
     bouton est en dessous de 3, le programme fait un Mouse.press() du clic
     gauche (1) ou du clic droit (2) de la souris au lieu d'un Keyboard.press()
     et puis fait unu Mouse.release().
 
   Fonctionnement de la réception de JSON:
-    Le programme détecte lorsque que quelque chose est envoyé sur le port Serial1
+    Le programme détecte lorsque quelque chose est envoyé sur le port Serial1
     (TX1 et RX1). Il vérifie si c'est un JSON valide et renvoie un message d'erreur 
     sur le port série USB si ce n'en ai pas un. Si le JSON est valide il est séparé 
     et les valeurs décimales sont mises dans les variables des boutons et seront les 
@@ -40,7 +40,7 @@
     "bleu" est 48, le bouton bleu contrôlera la touche "1" du clavier.
 
   created 12/12/2022
-  updated 16/02/2023
+  updated 20/02/2023
   by Mathis Savoie
 */
 
