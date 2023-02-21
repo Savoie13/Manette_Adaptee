@@ -323,13 +323,6 @@
 	  selectedValue.value = option.innerText;
 	  myFunction(id);
 	}
-	function serialSend(JSON) {
-	  await port.open({baudRate: 9600});
-	  const encoder = new TextEncoder();
-		const writer = port.writable.getWriter();
-		await writer.write(encoder.encode(JSON));
-		writer.releaseLock();
-	}
   </script>
 </body>
 </html>
