@@ -27153,7 +27153,7 @@
   (gr_line (start 101.5 35.5) (end 201.5 35.5) (layer "Edge.Cuts") (width 0.1) (tstamp 8408dd20-5d23-4f82-9d95-c907bb718d6c))
   (gr_line (start 101.5 115.5) (end 201.5 115.5) (layer "Edge.Cuts") (width 0.1) (tstamp 89df28d8-a8c6-41c5-a8ff-5fe8bbeb06d8))
   (gr_line (start 101.5 35.5) (end 101.5 115.5) (layer "Edge.Cuts") (width 0.1) (tstamp a88463e9-3b4c-48e8-98eb-bfccf5d6f39a))
-  (gr_text "Projet TSO : Manette adapté\nJouer sans limite\n" (at 151.5 38.75) (layer "F.SilkS") (tstamp 0d04f4c4-fc15-48de-a7fd-d42ec1cf5c83)
+  (gr_text "Projet TSO : Manette adaptée\nJouer sans limite\n" (at 151.5 38.75) (layer "F.SilkS") (tstamp 0d04f4c4-fc15-48de-a7fd-d42ec1cf5c83)
     (effects (font (size 1.2 1.2) (thickness 0.15)))
   )
   (gr_text "VCC" (at 167.75 62.25) (layer "F.SilkS") (tstamp 262d246a-3568-47c7-933b-1cd3e64b55f6)
