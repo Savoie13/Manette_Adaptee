@@ -129,7 +129,7 @@ void setup() {
   //Prend contrôle du Clavier
   Keyboard.begin();
   
-  Serial1.begin(9600);        //démarre le port série 1 pour la réception de JSONs
+  Serial1.begin(115200);        //démarre le port série 1 pour la réception de JSONs
   delay(5000);                //délai de 5 seconde au démarrage de la manette. Aide pour Mouse.h et Keyboard.h
 }
 

@@ -15,6 +15,23 @@ void setup() {
 }
 
 void loop() {
+    StaticJsonDocument<200> doc;
+    doc["id"] = id[i];
+    doc["valeur"] = valeur[i];
+    // Serialize the JSON object to a string
+    String jsonString;
+    serializeJson(doc, jsonString);
+    
+    // Send the serialized JSON string to the Arduino
+    Serial.println(jsonString);
+    mode = false;
+    i++;
+    if(i == 14)
+    {
+      i = 0;
+    }
+    delay(5000); // wait for 1 second
+  /*
   if(digitalRead(BUTTON_SWITCH) == HIGH)
   {
     while(digitalRead(BUTTON_SWITCH) == HIGH);
@@ -36,4 +53,5 @@ void loop() {
     }
   }
   delay(10); // wait for 1 second
+  */
 }
