@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<title>Configuration de la manette</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="jmer">
+		<link href="bootstrap.css" rel="stylesheet">
+		<link rel="icon" href="manette.png">
+		<script src="commands.js"></script>
+		<!-- I'm an HTML comment! -->
+		<script>window.onload = setupWebsocket</script>
+		<style type="text/css">
+			body {  background-color:black;	color:#444444;  text-align: center}
+			footer { color:lightslategray; font-size:xx-small}
+			h1 { color:aqua}
+			h4 { color:lightslategray}
+			.bleu
+			{
+				background-color: rgb(0, 123, 255);
+			}
+			.rouge
+			{
+				background-color: rgb(255, 0, 0);
+			}
+			.vert
+			{
+				background-color: rgb(26, 255, 0);
+			}
+			.jaune
+			{
+				background-color: rgb(255, 234, 0);
+			}
+			.gris
+			{
+				background-color: rgb(185, 185, 185);
+			}
+		</style>
+	</head>
+
+<body>
+	<div class="container" >
+		<div class="header">
+	   	 	<nav>
+				<ul class="nav nav-pills pull-left">												
+				</ul>
+			</nav>  
+		</div>
+		<br><br>
+		<h1 >Configuration de la manette adaptée</h1>
+		<h4 >Sélectionnez un bouton puis tapez une touche (et Entrer) ou choisissez une option</h4>
+		<select name="bouton" id="bouton">
+			<option class="bleu" value=1>Bleu</option>
+			<option class="rouge" value=2>Rouge</option>
+			<option class="vert" value=3>Vert</option>
+			<option value=4>Blanc</option>
+			<option class="jaune" value=5>Jaune</option>
+			<option class="gris" value=6>Aux. 1</option>
+			<option class="gris" value=7>Aux. 2</option>
+			<option class="gris" value=8>Aux. 3</option>
+			<option class="gris" value=9>Aux. 4</option>
+			<option class="gris" value=10>Aux. 5</option>
+			<option class="gris" value=11>Aux. 6</option>
+            <option class="gris" value=12>Aux. 7</option>
+            <option class="gris" value=13>Aux. 8</option>
+            <option class="gris" value=14>Aux. 9</option>
+
+		</select>
+		<input maxlength="1" style="color:#191992 background-color:#575758" id="commande" size="30">
+		<select name="speCar" id="special">
+			<option value = 27 >ESC</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+		</select>
+		<h4 style="color:aqua">Changement(s) enregistré(s)</h4>
+		<h1 style="color:aqua" class="counter-display">0</h1>
+		<div style="color:lightslategray" id="output"></div>
+		<footer>
+			<p>Jackob et Mathis 2023</p>
+		</footer>
+	</div> 	
+</body>
+</html>
