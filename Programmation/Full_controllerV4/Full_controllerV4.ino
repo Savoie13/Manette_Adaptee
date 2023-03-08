@@ -1,17 +1,4 @@
-/*
-  Manette_Adaptée
-
-  Manette de jeux vidéo à l'ordinateur pour les personnes à mobilitées réduites ou ayant un handicap cognitif leur empêchant d'utiliser une manette standard.
-  
-  Contrôle le curseur d'ordinateur avec un joystick et contrôle différentes touches du clavier et les boutons de la souris avec des boutons
-    branchés sur Arduino Pro Micro. Contrôle aussi la réception de JSON arrivant sur son deuxième port série Serial1 pour modifier le
-    fonctionnement de ses boutons. Les boutons de la manette sont préconfigurés de manière à ce qu'elle soit déja fonctionnelle pour la 
-    plupart des jeux sans utiliser la fonction de configuration externe par JSON. 
-    
-  Hardware:
-  - Arduino Micro Pro.
-  - Cable micro USB.
-  - 1 à 14 boutons branchés au pattes D2, D3, D4, D5, D6, D7, D8, D9, D10, D14, D15, D16, D20, D20 du Arduino Pro Micro. Le code fonctionne peut importe le nombre de boutons utilisés.
+/*ns. Lesnchés au pattes D2, D3, D4, D5, D6, D7, D8, D9, D10, D14, D15, D16, D20, D20 du Arduino Pro Micro. Le code fonctionne peut importe le nombre de boutons utilisés.
   - Joystick 2 axes branché au pattes A0 et A1 du Arduino Pro Micro.
   - 14 résistances de pulldown de 10KΩ branchées sur les 14 entrées digitales citées plus haut.
 
