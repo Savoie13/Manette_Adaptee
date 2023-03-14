@@ -34,6 +34,7 @@
 #include "Mouse.h"            //librairie pour le contrôle du curseur de la souris et ses boutons.
 #include "Keyboard.h"         //librairie pour le contrôle du clavier de l'ordinateur.
 #include <ArduinoJson.h>      //Librairie pour la réception et le décodage de JSON.
+#include <EEPROM.h>
 
 // Numéros de pattes pour les boutons et le joystick
 const int boutonBleu = 16;
@@ -78,23 +79,25 @@ int previousButtonStateJack9 = HIGH;
 
 
 //paramètres de base des boutons
-int bleu = 'a';
-int rouge = 'w';
-int vert = 1;     //1 pour le clic gauche de la souris
-int blanc = 's';
-int jaune = 'd';
-int jack1 = '1';
-int jack2 = '2';
-int jack3 = '3';
-int jack4 = '4';
-int jack5 = '5';
-int jack6 = '6';
-int jack7 = '7';
-int jack8 = '8';
-int jack9 = '9';
+int bleu;
+int rouge;
+int vert;     //1 pour le clic gauche de la souris
+int blanc;
+int jaune;
+int jack1;
+int jack2;
+int jack3; 
+int jack4;
+int jack5;
+int jack6;
+int jack7;
+int jack8;
+int jack9;
 
 
 void setup() {
+
+  readEEPROM();
   //déclare les boutons en entrée pullup
   pinMode(boutonBleu, INPUT_PULLUP);
   pinMode(boutonRouge, INPUT_PULLUP);
@@ -388,7 +391,7 @@ void loop() {
   previousButtonStateJack7 = buttonStateJack7;
   previousButtonStateJack8 = buttonStateJack8;
   previousButtonStateJack9 = buttonStateJack9;
-
+  
   if (Serial1.available())  //si quelque chose est reçu sur le port série 1
   {
     
@@ -488,7 +491,7 @@ void loop() {
     Serial.print("Jack 9: ");
     Serial.println(jack9);
     
-
+    writeEEPROM();
     
   }
   
@@ -514,4 +517,42 @@ int readAxis(int thisAxis) {
 
   //Retourne la distance entre -6 et 6 pour faire bouger le curseur
   return distance;
+}
+
+void readEEPROM()
+{
+    bleu = EEPROM.read(0);
+    rouge = EEPROM.read(1);
+    vert = EEPROM.read(2);
+    blanc = EEPROM.read(3);
+    jaune = EEPROM.read(4);
+    jack1 = EEPROM.read(5);
+    jack2 = EEPROM.read(6);
+    jack3 = EEPROM.read(7);
+    jack4 = EEPROM.read(8);
+    jack5 = EEPROM.read(9);
+    jack6 = EEPROM.read(10);
+    jack7 = EEPROM.read(11);
+    jack8 = EEPROM.read(12);
+    jack9 = EEPROM.read(13);
+    return;
+}
+
+void writeEEPROM()
+{
+    EEPROM.write(0, bleu);
+    EEPROM.write(1, rouge);
+    EEPROM.write(2, vert);
+    EEPROM.write(3, blanc);
+    EEPROM.write(4, jaune);
+    EEPROM.write(5, jack1);
+    EEPROM.write(6, jack2);
+    EEPROM.write(7, jack3);
+    EEPROM.write(8, jack4);
+    EEPROM.write(9, jack5);
+    EEPROM.write(10, jack6);
+    EEPROM.write(11, jack7);
+    EEPROM.write(12, jack8);
+    EEPROM.write(13, jack9);
+    return;
 }
