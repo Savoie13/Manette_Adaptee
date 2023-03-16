@@ -149,7 +149,7 @@ void loop() {
   //Si le bouton bleu est appuyé
   if (buttonStateBleu == HIGH && previousButtonStateBleu == LOW) 
   {
-    if(bleu > 3)              //si le bouton contrôle les boutons du clavier
+    if(bleu > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.press(bleu);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.press(bleu);
@@ -157,7 +157,7 @@ void loop() {
   //Si le bouton bleu n'est plus appuyé
   if (buttonStateBleu == LOW && previousButtonStateBleu == HIGH) 
   {
-    if(bleu > 3)              //si le bouton contrôle les boutons du clavier
+    if(bleu > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(bleu);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(bleu);
@@ -166,7 +166,7 @@ void loop() {
   //Si le bouton rouge est appuyé
   if (buttonStateRouge == HIGH && previousButtonStateRouge == LOW) 
   {
-    if(rouge > 3)              //si le bouton contrôle les boutons du clavier
+    if(rouge > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.press(rouge);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.press(rouge);  
@@ -174,7 +174,7 @@ void loop() {
   //Si le bouton rouge n'est plus appuyé
   if (buttonStateRouge == LOW && previousButtonStateRouge == HIGH) 
   {
-    if(rouge > 3)              //si le bouton contrôle les boutons du clavier
+    if(rouge > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(rouge);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(rouge);
@@ -183,7 +183,7 @@ void loop() {
   //Si le bouton vert est appuyé
   if (buttonStateVert == HIGH && previousButtonStateVert == LOW) 
   {
-    if(vert > 3)              //si le bouton contrôle les boutons du clavier
+    if(vert > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.press(vert);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.press(vert);
@@ -191,7 +191,7 @@ void loop() {
   //Si le bouton vert n'est plus appuyé
   if (buttonStateVert == LOW && previousButtonStateVert == HIGH) 
   {
-    if(vert > 3)              //si le bouton contrôle les boutons du clavier
+    if(vert > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(vert);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(vert);
@@ -200,7 +200,7 @@ void loop() {
   //Si le bouton blanc est appuyé
   if (buttonStateBlanc == HIGH && previousButtonStateBlanc == LOW) 
   {
-    if(blanc > 3)              //si le bouton contrôle les boutons du clavier
+    if(blanc > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.press(blanc);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.press(blanc);
@@ -208,7 +208,7 @@ void loop() {
   //Si le bouton blanc n'est plus appuyé
   if (buttonStateBlanc == LOW && previousButtonStateBlanc == HIGH) 
   {
-    if(blanc > 3)              //si le bouton contrôle les boutons du clavier
+    if(blanc > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(blanc);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(blanc);
@@ -217,7 +217,7 @@ void loop() {
   //Si le bouton jaune est appuyé
   if (buttonStateJaune == HIGH && previousButtonStateJaune == LOW) 
   {
-     if(jaune > 3)              //si le bouton contrôle les boutons du clavier
+     if(jaune > 4)              //si le bouton contrôle les boutons du clavier
        Keyboard.press(jaune);
      else                      //si le bonton contrôle les boutons de la souris
        Mouse.press(jaune);
@@ -225,7 +225,7 @@ void loop() {
   //Si le bouton jaune n'est plus appuyé
   if (buttonStateJaune == LOW && previousButtonStateJaune == HIGH) 
   {
-    if(jaune > 3)              //si le bouton contrôle les boutons du clavier
+    if(jaune > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(jaune);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(jaune);
@@ -233,7 +233,7 @@ void loop() {
   //Si le bouton jack1 est appuyé
   if (buttonStateJack1 == HIGH && previousButtonStateJack1 == LOW) 
   {
-     if(jack1 > 3)              //si le bouton contrôle les boutons du clavier
+     if(jack1 > 4)              //si le bouton contrôle les boutons du clavier
        Keyboard.press(jack1);
      else                      //si le bonton contrôle les boutons de la souris
        Mouse.press(jack1);
@@ -241,7 +241,7 @@ void loop() {
   //Si le bouton jack1 n'est plus appuyé
   if (buttonStateJack1 == LOW && previousButtonStateJack1 == HIGH) 
   {
-    if(jack1 > 3)              //si le bouton contrôle les boutons du clavier
+    if(jack1 > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(jack1);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(jack1);
@@ -249,7 +249,7 @@ void loop() {
   //Si le bouton jack2 est appuyé
   if (buttonStateJack2 == HIGH && previousButtonStateJack2 == LOW) 
   {
-     if(jack2 > 3)              //si le bouton contrôle les boutons du clavier
+     if(jack2 > 4)              //si le bouton contrôle les boutons du clavier
        Keyboard.press(jack2);
      else                      //si le bonton contrôle les boutons de la souris
        Mouse.press(jack2);
@@ -257,7 +257,7 @@ void loop() {
   //Si le bouton jack2 n'est plus appuyé
   if (buttonStateJack2 == LOW && previousButtonStateJack2 == HIGH) 
   {
-    if(jack2 > 3)              //si le bouton contrôle les boutons du clavier
+    if(jack2 > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(jack2);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(jack2);
@@ -265,7 +265,7 @@ void loop() {
   //Si le bouton jack3 est appuyé
   if (buttonStateJack3 == HIGH && previousButtonStateJack3 == LOW) 
   {
-     if(jack3 > 3)              //si le bouton contrôle les boutons du clavier
+     if(jack3 > 4)              //si le bouton contrôle les boutons du clavier
        Keyboard.press(jack3);
      else                      //si le bonton contrôle les boutons de la souris
        Mouse.press(jack3);
@@ -273,7 +273,7 @@ void loop() {
   //Si le bouton jack3 n'est plus appuyé
   if (buttonStateJack3 == LOW && previousButtonStateJack3 == HIGH) 
   {
-    if(jack3 > 3)              //si le bouton contrôle les boutons du clavier
+    if(jack3 > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(jack3);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(jack3);
@@ -281,7 +281,7 @@ void loop() {
   //Si le bouton jack4 est appuyé
   if (buttonStateJack4 == HIGH && previousButtonStateJack4 == LOW) 
   {
-     if(jack4 > 3)              //si le bouton contrôle les boutons du clavier
+     if(jack4 > 4)              //si le bouton contrôle les boutons du clavier
        Keyboard.press(jack4);
      else                      //si le bonton contrôle les boutons de la souris
        Mouse.press(jack4);
@@ -289,7 +289,7 @@ void loop() {
   //Si le bouton jack4 n'est plus appuyé
   if (buttonStateJack4 == LOW && previousButtonStateJack4 == HIGH) 
   {
-    if(jack4 > 3)              //si le bouton contrôle les boutons du clavier
+    if(jack4 > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(jack4);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(jack4);
@@ -297,7 +297,7 @@ void loop() {
   //Si le bouton jack5 est appuyé
   if (buttonStateJack5 == HIGH && previousButtonStateJack5 == LOW) 
   {
-     if(jack5 > 3)              //si le bouton contrôle les boutons du clavier
+     if(jack5 > 4)              //si le bouton contrôle les boutons du clavier
        Keyboard.press(jack5);
      else                      //si le bonton contrôle les boutons de la souris
        Mouse.press(jack5);
@@ -305,7 +305,7 @@ void loop() {
   //Si le bouton jack5 n'est plus appuyé
   if (buttonStateJack5 == LOW && previousButtonStateJack5 == HIGH) 
   {
-    if(jack5 > 3)              //si le bouton contrôle les boutons du clavier
+    if(jack5 > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(jack5);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(jack5);
@@ -313,7 +313,7 @@ void loop() {
   //Si le bouton jack6 est appuyé
   if (buttonStateJack6 == HIGH && previousButtonStateJack6 == LOW) 
   {
-     if(jack6 > 3)              //si le bouton contrôle les boutons du clavier
+     if(jack6 > 4)              //si le bouton contrôle les boutons du clavier
        Keyboard.press(jack6);
      else                      //si le bonton contrôle les boutons de la souris
        Mouse.press(jack6);
@@ -321,7 +321,7 @@ void loop() {
   //Si le bouton jack6 n'est plus appuyé
   if (buttonStateJack6 == LOW && previousButtonStateJack6 == HIGH) 
   {
-    if(jack6 > 3)              //si le bouton contrôle les boutons du clavier
+    if(jack6 > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(jack6);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(jack6);
@@ -329,7 +329,7 @@ void loop() {
   //Si le bouton jack7 est appuyé
   if (buttonStateJack7 == HIGH && previousButtonStateJack7 == LOW) 
   {
-     if(jack7 > 3)              //si le bouton contrôle les boutons du clavier
+     if(jack7 > 4)              //si le bouton contrôle les boutons du clavier
        Keyboard.press(jack7);
      else                      //si le bonton contrôle les boutons de la souris
        Mouse.press(jack7);
@@ -337,7 +337,7 @@ void loop() {
   //Si le bouton jack7 n'est plus appuyé
   if (buttonStateJack7 == LOW && previousButtonStateJack7 == HIGH) 
   {
-    if(jack7 > 3)              //si le bouton contrôle les boutons du clavier
+    if(jack7 > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(jack7);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(jack7);
@@ -345,7 +345,7 @@ void loop() {
   //Si le bouton jack8 est appuyé
   if (buttonStateJack8 == HIGH && previousButtonStateJack8 == LOW) 
   {
-     if(jack8 > 3)              //si le bouton contrôle les boutons du clavier
+     if(jack8 > 4)              //si le bouton contrôle les boutons du clavier
        Keyboard.press(jack8);
      else                      //si le bonton contrôle les boutons de la souris
        Mouse.press(jack8);
@@ -353,7 +353,7 @@ void loop() {
   //Si le bouton jack8 n'est plus appuyé
   if (buttonStateJack8 == LOW && previousButtonStateJack8 == HIGH) 
   {
-    if(jack8 > 3)              //si le bouton contrôle les boutons du clavier
+    if(jack8 > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(jack8);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(jack8);
@@ -361,7 +361,7 @@ void loop() {
   //Si le bouton jack9 est appuyé
   if (buttonStateJack9 == HIGH && previousButtonStateJack9 == LOW) 
   {
-     if(jack9 > 3)              //si le bouton contrôle les boutons du clavier
+     if(jack9 > 4)              //si le bouton contrôle les boutons du clavier
        Keyboard.press(jack9);
      else                      //si le bonton contrôle les boutons de la souris
        Mouse.press(jack9);
@@ -369,7 +369,7 @@ void loop() {
   //Si le bouton jack9 n'est plus appuyé
   if (buttonStateJack9 == LOW && previousButtonStateJack9 == HIGH) 
   {
-    if(jack9 > 3)              //si le bouton contrôle les boutons du clavier
+    if(jack9 > 4)              //si le bouton contrôle les boutons du clavier
       Keyboard.release(jack9);
     else                      //si le bonton contrôle les boutons de la souris
       Mouse.release(jack9);
