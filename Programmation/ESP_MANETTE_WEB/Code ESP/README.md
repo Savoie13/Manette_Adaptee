@@ -3,3 +3,4 @@ Ce répertoire contient le code HTML, le code Javascript, le code CSS, le fichie
 Il est important de supprimer les anciens fichiers avant de mettre les fichiers présents dans ce répertoire. 
 
 Pour notre part, nous utilisons FileZilla afin de nous connecter à l'ESP et avoir accès aux fichiers du serveur.
+Hôte (IP): 192.168.4.1, User : jmer, mot de passe : 123
