@@ -83,9 +83,10 @@ int center = range / 2;     // valeur du joystick quand il ne bouge pas
 //Tableau pour l'état de départ des boutons
 int previousButtonState[14] = {HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH};
 
+//Tableau pour contenir les valeurs de chaque boutons
 int button[14];
 
-//Tableau pour l'état de départ
+//Tableau pour l'état de départ des boutons
 int buttonState[14];
 
 void setup() 
