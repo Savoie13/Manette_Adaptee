@@ -1,4 +1,4 @@
 # Manette Adaptée : Jouer sans limite
 ## Mathis Savoie et Jackob Breton
 Ce répertoire GitHub est pour le projet de manette adapté avec l’école du Touret. Nous sommes 2 finissants en technologie de systèmes ordinés et le projet que nous allons tenter de réaliser est de programmer un Arduino Micro pour faire une manette pour des jeux Scratch. Cette manette adaptée permettra aux élèves de l’école du Touret qui ont moins de mobilité de jouer à des jeux vidéo comme leurs camarades. La manette sera composée de gros boutons et joysticks et permettra de brancher divers boutons pour plus de fonctionnalités. La manette comporterait aussi un ESP-32 afin de pouvoir, grâce à une interface d’usager WEB, configurer la manette et ses boutons.
-![PXL_20221212_140048988 (2)](https://user-images.githubusercontent.com/112187263/228635390-3c42beae-899d-4817-88b0-24dbcf54ef5b.jpg)
+https://cegepdesherbrooke.sharepoint.com/:i:/s/OsEntreprendre2023-Manettedejeu/EZtx1mDTHKtDhCwBufRV5tYBBbB89d3Yg-od6NIqFDSvfA?e=5UEhOC
