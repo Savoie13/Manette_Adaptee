@@ -1,3 +1,21 @@
+/*
+  WriteEEPROM
+
+  Code qui doit être téléchargé avant de télécharger Full_controllerV5.ino. Il permet de
+  mettre des valeurs au bonnes adresses de l'EEPROM du Arduino Pro Micro pour que lors du
+  téléchargement du code principal "Full_controllerV5" les boutons de la manette aies des
+  valeurs de base. Dans ce code on met les boutons 0 à 14 à a, w, s, "clic gauche", d, 1,
+  2, 3, 4, 5, 6, 7, 8, 9 respectivement.
+    
+  Hardware:
+  - Arduino Micro Pro.
+  - Cable micro USB.
+
+  created 21/02/2023
+  updated 11/04/2023
+  by Mathis Savoie
+*/
+
 #include <EEPROM.h>
 
 void setup() {
@@ -5,7 +23,7 @@ void setup() {
   EEPROM.write(0, 'a');
   EEPROM.write(1, 'w');
   EEPROM.write(2, 's');
-  EEPROM.write(3, 1);
+  EEPROM.write(3, 1); //clic gauche
   EEPROM.write(4, 'd');
   EEPROM.write(5, '1');
   EEPROM.write(6, '2');
