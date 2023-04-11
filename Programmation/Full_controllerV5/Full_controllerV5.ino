@@ -13,19 +13,19 @@
   - Cable micro USB.
   - 1 à 14 boutons branchés au pattes D2 à D10, D14 à D16, D20 et D21 du Arduino Pro Micro.
   - 1 joystick 2 axes branché au pattes A0 et A1 du Arduino Pro Micro.
-  - 14 résistances de 10K pour chaque entrées de boutons qu'il soit utilisé ou pas.
+  - 14 résistances de 10K pour chaques entrées de boutons qu'ils soient utilisé ou pas.
 
   Fonctionnement du joystick: 
     Le programme lit ses entrées analogiques A0 et A1 variants de 0 à 1023 et 
     converti ces valeurs entre -6 et 6. Quand la valeur des deux axes est 0,
     le curseur arrête de bouger et lorsque ces valeurs sont autres que 0 le
-    curseur bouge en se basant de la librairie Mouse.h. 
+    curseur bouge en se basant sur la librairie Mouse.h. 
 
   Fonctionnement des boutons:
     Avec les entrées digitales configurées en entrées, le programme détecte
     lorsque les boutons sont appuyés et fait un Keyboard.press() de la valeur
     ASCII qui est configuré pour ce bouton. Un Keyboard.release() est ensuite 
-    fait lorsque le bouton est relâché pour empêché que la touche du clavier
+    fait lorsque le bouton est relâché pour empêcher que la touche du clavier
     soit encore appuyée. De plus, quand la valeur configuré pour les bouton 
     est en dessous de 5, le programme fait un Mouse.press() du clic gauche (1),
     du clic droit (2) ou du clic du milieu (4) de la souris au lieu d'un 
@@ -42,6 +42,14 @@
     bleu contrôlera la touche "1" du clavier. Ensuite, une fois les configurations
     terminées, le tout est enregistrer dans l'EEPROM et renvoyé sur le port Serial1
     pour confirmer que tout à bien été reçu.
+
+
+  **IMPORTANT**
+    Il faut absoluement télécharger le code WriteEEPROM.ino disponible au 
+    https://github.com/Savoie13/Manette_Adaptee/tree/main/Programmation/WriteEEPROM
+    dans l'arduino avant de télécharger celui-ci. Sinon, ce code n'optiendra 
+    rien quand il essayera d'aller chercher les valeurs de base des boutons dans 
+    l'EEPROM et il ne fonctionnera pas. 
 
   created 12/12/2022
   updated 27/03/2023
