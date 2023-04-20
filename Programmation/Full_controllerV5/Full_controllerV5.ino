@@ -13,19 +13,19 @@
   - Cable micro USB.
   - 1 à 14 boutons branchés au pattes D2 à D10, D14 à D16, D20 et D21 du Arduino Pro Micro.
   - 1 joystick 2 axes branché au pattes A0 et A1 du Arduino Pro Micro.
-  - 14 résistances de 10K pour chaque entrées de boutons qu'il soit utilisé ou pas.
+  - 14 résistances de 10K pour chaques entrées de boutons qu'ils soient utilisé ou pas.
 
   Fonctionnement du joystick: 
     Le programme lit ses entrées analogiques A0 et A1 variants de 0 à 1023 et 
     converti ces valeurs entre -6 et 6. Quand la valeur des deux axes est 0,
     le curseur arrête de bouger et lorsque ces valeurs sont autres que 0 le
-    curseur bouge en se basant de la librairie Mouse.h. 
+    curseur bouge en se basant sur la librairie Mouse.h. 
 
   Fonctionnement des boutons:
     Avec les entrées digitales configurées en entrées, le programme détecte
     lorsque les boutons sont appuyés et fait un Keyboard.press() de la valeur
     ASCII qui est configuré pour ce bouton. Un Keyboard.release() est ensuite 
-    fait lorsque le bouton est relâché pour empêché que la touche du clavier
+    fait lorsque le bouton est relâché pour empêcher que la touche du clavier
     soit encore appuyée. De plus, quand la valeur configuré pour les bouton 
     est en dessous de 5, le programme fait un Mouse.press() du clic gauche (1),
     du clic droit (2) ou du clic du milieu (4) de la souris au lieu d'un 
@@ -43,8 +43,15 @@
     terminées, le tout est enregistrer dans l'EEPROM et renvoyé sur le port Serial1
     pour confirmer que tout à bien été reçu.
 
+  **IMPORTANT**
+    Il faut absoluement télécharger le code WriteEEPROM.ino disponible au 
+    https://github.com/Savoie13/Manette_Adaptee/tree/main/Programmation/WriteEEPROM
+    dans l'arduino avant de télécharger celui-ci. Sinon, ce code n'optiendra 
+    rien quand il essayera d'aller chercher les valeurs de base des boutons dans 
+    l'EEPROM et il ne fonctionnera pas. 
+
   created 12/12/2022
-  updated 27/03/2023
+  updated 11/04/2023
   by Mathis Savoie
 */
 
@@ -91,7 +98,6 @@ int buttonState[14];
 
 void setup() 
 {
-  // put your setup code here, to run once:
   readEEPROM();
   //déclare les boutons en entrée pullup
   pinMode(boutonBleu, INPUT_PULLUP);
@@ -142,34 +148,38 @@ void loop()
 
   Mouse.move(xReading, yReading, 0);                  //bouge le curseur en fonction de la position du joystick
 
+  //vérifie tout les boutons pour savoir si ils ont étés appuyés
   for(int i = 0; i < 14; i++)
   {
-    if(buttonState[i] == HIGH && previousButtonState[i] == LOW)
+    if(buttonState[i] == HIGH && previousButtonState[i] == LOW) //si le bouton à été appuyé appuyé
     {
-      if(button[i] > 4)
-        Keyboard.press(button[i]);
-      else
-        Mouse.press(button[i]);
+      if(button[i] > 4)   //si c'est un touche du clavier
+        Keyboard.press(button[i]);  //appuie sur la touche
+      else                //si c'est un bouton de la souris
+        Mouse.press(button[i]);     //appuie sur la souris
     }
-    if(buttonState[i] == LOW && previousButtonState[i] == HIGH)
+    if(buttonState[i] == LOW && previousButtonState[i] == HIGH) //si le bouton à été relâché
     {
-      if(button[i] > 4)
-        Keyboard.release(button[i]);
-      else
-        Mouse.release(button[i]);
+      if(button[i] > 4)   //si c'est un touche du clavier
+        Keyboard.release(button[i]); //relâche la touche du clavier
+      else                //si c'est un bouton de la souris
+        Mouse.release(button[i]);    //relâche le clic de la souris
     }
   }
 
+  //Enregistre le nouvel état de tous les boutons
   for(int i = 0; i < 14; i++)
   {
     previousButtonState[i] = buttonState[i];
   }
+  
 
   if (Serial1.available())  //si quelque chose est reçu sur le port série 1
   {
     //Lit le JSON et le met dans la variable jsonString
     String jsonString = Serial1.readStringUntil('\n');
     Serial.println(jsonString);
+    
     //Alloue un buffer pour l'objet JSON
     StaticJsonDocument<200> doc;
     
@@ -183,41 +193,41 @@ void loop()
       return;
     }
 
-    if(jsonString.length() > 30)
+    if(jsonString.length() > 30)  //Si le JSON contient toutes les configurations de la manette
     {
       for(int i = 0; i < 14; i++)
       {
-        button[i] = doc[String(i + 1)];
+        button[i] = doc[String(i + 1)]; //Assigne la nouvelle valeur à tout les boutons
       }
     }
-    else
+    else                          //Si le JSON ne contient qu'une seule nouvelle configuration pour la manette
     {
-      int id = doc["id"];
+      int id = doc["id"];         //Enregistre quel bouton est changé
+      int valeur = doc["valeur"]; //Enregistre la valeur de ce bouton
       
-      int valeur = doc["valeur"];
-      for(int i = 0; i < 14; i++)
+      for(int i = 0; i < 14; i++) //Passe à travers tout les boutons
       {
-        if(i + 1 == id)
+        if(i + 1 == id)           //Si c'est le boutons qui doit être changé
         {
-          button[i] = valeur;
+          button[i] = valeur;     //On lui assigne sa nouvelle configuration
         }
       }
     }
 
     
 
-    sendJSONConfig();
+    sendJSONConfig();             //Renvoie les nouvelles configurations de la manette sur le port Serial1
     
-    writeEEPROM();
+    writeEEPROM();                //Enregistre les nouvelles configurations de la manette sur l'EEPROM
   }
   
   delay(responseDelay);   //délai de réponse de la souris
 }
 
+
 /*
   Lit un axe (A0 ou A1 pour X ou Y) et le met à l'échelle selon la variable "range" au début du code
 */
-
 int readAxis(int thisAxis) 
 {
   // Lit l'entrée analogique
@@ -236,6 +246,11 @@ int readAxis(int thisAxis)
   return distance*-1;
 }
 
+/*
+  Lit les valeurs enregistrées dans l'EEPROM et assigne ces valeurs à tout les boutons. Elle sert surtout
+  au début du code pour aller chercher les valeurs qui étaient assignées lors de la dernière utilisation
+  de la manette.
+*/
 void readEEPROM()
 {
   for(int i = 0; i < 14; i++)
@@ -245,6 +260,10 @@ void readEEPROM()
   return;
 }
 
+/*
+  Écrit les valeurs des boutons dans l'EEPROM de l'Arduino pour que ces valeurs soient reprises lorsqu'on redémarre
+  la manette. Cette fonction est utilisé à chaque fois qu'on change une configuration de la manette.
+*/
 void writeEEPROM()
 {
   for(int i = 0; i < 14; i++)
@@ -254,20 +273,26 @@ void writeEEPROM()
   return;
 }
 
+/*
+  Met les configurations des boutons dans un JSON et les envoies sur le port Serial1 pour qu'elles puissent être reçues 
+  par le NodeMCU ESP8266 et êtres affichées sur le site WEB.
+*/
 void sendJSONConfig()
 {
+  //Alloue un buffer pour l'objet JSON
   StaticJsonDocument<512> docRetour;
   
   for(int i = 0; i < 14; i++)
   {   
-    if(button[i] > 32 && button[i] < 128)
+    if(button[i] > 32 && button[i] < 128) //si la valeur du boutons est un simple caractère ASCCI
     {
-      char convertC = button[i];
-      String convertS = String(convertC);
-      docRetour[idBouton[i]] = convertS;
+      char convertC = button[i];          //la converti en charactère
+      String convertS = String(convertC); //la converti en String
+      docRetour[idBouton[i]] = convertS;  //la met dans le JSON
     }
-    else
+    else                                //Si la valeur est un caractètre spécial ou un clic de souris
     {
+      //on lui assigne sa valeur de manière lisible au lieu d'un chiffre
       switch(button[i])
       {
         case 1:
@@ -321,6 +346,6 @@ void sendJSONConfig()
   }
 
     
-  serializeJson(docRetour, Serial1);
-  Serial1.print("\n");
+  serializeJson(docRetour, Serial1);  //Sérialise le JSON et l'envoie sur le port Serial1
+  Serial1.print("\n");                //Ajoute un "\n" pour identifier la fin du JSON 
 }
