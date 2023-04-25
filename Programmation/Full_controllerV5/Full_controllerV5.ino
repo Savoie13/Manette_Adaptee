@@ -84,7 +84,7 @@ const String idBouton[14] = {"b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9
 // Paramètres pour la lecture du joystick
 int range = 12;             // range de valeurs pour le contrôle du curseur
 int responseDelay = 5;      // délai de réponse de la souris en ms
-int threshold = range / 4;  // seuil du joystick
+int threshold = range / 6;  // seuil du joystick
 int center = range / 2;     // valeur du joystick quand il ne bouge pas
 
 //Tableau pour l'état de départ des boutons
@@ -129,6 +129,9 @@ void loop()
   // Lit et met à l'échelle les axes
   int xReading = readAxis(A0);
   int yReading = readAxis(A1);
+  if(xReading < 0)
+    xReading = xReading + 2;
+  //int xReading = 0;
 
   //vérifie l'état des boutons
   buttonState[0] = digitalRead(boutonBleu);
@@ -238,12 +241,19 @@ int readAxis(int thisAxis)
 
   //S'assure que la position initiale du Joystick est 0
   int distance = reading - center;
-  if (abs(distance) < threshold) {
-    distance = 0;
-  }
+  distance = distance * -1;
 
+  if(distance < 0)
+    distance = distance - 2;
+  
+  Serial.print(distance);
+  Serial.print("\n\r");
+    
+  if (abs(distance) < threshold)
+    distance = 0;
+    
   //Retourne la distance entre -6 et 6 pour faire bouger le curseur
-  return distance*-1;
+  return distance;
 }
 
 /*
