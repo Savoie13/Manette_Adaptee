@@ -245,9 +245,6 @@ int readAxis(int thisAxis)
 
   if(distance < 0)
     distance = distance - 2;
-  
-  Serial.print(distance);
-  Serial.print("\n\r");
     
   if (abs(distance) < threshold)
     distance = 0;

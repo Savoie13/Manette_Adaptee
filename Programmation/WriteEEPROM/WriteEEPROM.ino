@@ -21,11 +21,11 @@
 
 void setup() {
   // put your setup code here, to run once:
-  EEPROM.write(0, 'a');
-  EEPROM.write(1, 'w');
-  EEPROM.write(2, 's');
+  EEPROM.write(0, 'd');
+  EEPROM.write(1, 's');
+  EEPROM.write(2, 'w');
   EEPROM.write(3, 1); //clic gauche
-  EEPROM.write(4, 'd');
+  EEPROM.write(4, 'a');
   EEPROM.write(5, '1');
   EEPROM.write(6, '2');
   EEPROM.write(7, '3');
