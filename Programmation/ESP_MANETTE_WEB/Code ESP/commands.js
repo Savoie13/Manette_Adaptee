@@ -5,7 +5,7 @@ function setupWebsocket() {
   var confBros = {1:100,2:115,3:119,4:1,5:97,6:2,7:4,8:2,9:101,10:215,11:216};
   var confCOD = {1:100,2:115,3:119,4:1,5:97,6:2,7:114,8:2,9:101,10:27,11:128};
 
-  var wsUri = "ws://" + location.host + "/";
+  var wsUri = "ws://" + location.host + "/ws";
   ws = new WebSocket(wsUri);
   ws.onopen = function(evt) { 
     console.log('websock open'); 
