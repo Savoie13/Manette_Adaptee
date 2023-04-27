@@ -332,6 +332,9 @@ void sendJSONConfig()
         case 179:
           docRetour[idBouton[i]] = "Tab";
           break;
+        case 193:
+          docRetour[idBouton[i]] = "Caps Lock";
+          break;
         case 215:
           docRetour[idBouton[i]] = "Flèche droite";
           break;
