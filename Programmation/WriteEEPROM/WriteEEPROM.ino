@@ -20,7 +20,6 @@
 #include <EEPROM.h>
 
 void setup() {
-  // put your setup code here, to run once:
   EEPROM.write(0, 'd');
   EEPROM.write(1, 's');
   EEPROM.write(2, 'w');
@@ -38,6 +37,5 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
   while(1);
 }
