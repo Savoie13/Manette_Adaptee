@@ -12,7 +12,7 @@
   - Arduino Micro Pro.
   - Cable micro USB.
   - 1 à 14 boutons branchés au pattes D2 à D10, D14 à D16, D20 et D21 du Arduino Pro Micro.
-  - 1 joystick 2 axes branché au pattes A0 et A1 du Arduino Pro Micro.
+  - 1 joystick à 2 axes branché au pattes A0 et A1 du Arduino Pro Micro.
   - 14 résistances de 10K pour chaques entrées de boutons qu'ils soient utilisé ou pas.
 
   Fonctionnement du joystick: 
@@ -98,7 +98,7 @@ int buttonState[14];
 
 void setup() 
 {
-  readEEPROM();
+  readEEPROM(); //va lire et récupérer les données dans l'EEPROM
   //déclare les boutons en entrée pullup
   pinMode(boutonBleu, INPUT_PULLUP);
   pinMode(boutonRouge, INPUT_PULLUP);
@@ -130,8 +130,7 @@ void loop()
   int xReading = readAxis(A0);
   int yReading = readAxis(A1);
   if(xReading < 0)
-    xReading = xReading + 2;
-  //int xReading = 0;
+    xReading = xReading + 2;  //ajuste le résultat la valeur de l'axe X pour compenser le mauvais potentiomètre
 
   //vérifie l'état des boutons
   buttonState[0] = digitalRead(boutonBleu);
@@ -241,11 +240,13 @@ int readAxis(int thisAxis)
 
   //S'assure que la position initiale du Joystick est 0
   int distance = reading - center;
-  distance = distance * -1;
+  
+  distance = distance * -1; //inverse les axes parce que le joystick est à l'envers
 
-  if(distance < 0)
-    distance = distance - 2;
-    
+  if(distance < 0)            
+    distance = distance - 2;  //ajuste les valeurs pour compenser le mauvais potentiomètre
+
+  //Met un buffer sur lequel le curseur ne bougera pas et restera a zero
   if (abs(distance) < threshold)
     distance = 0;
     
