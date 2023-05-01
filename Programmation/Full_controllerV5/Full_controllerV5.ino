@@ -245,9 +245,6 @@ int readAxis(int thisAxis)
 
   if(distance < 0)
     distance = distance - 2;
-  
-  Serial.print(distance);
-  Serial.print("\n\r");
     
   if (abs(distance) < threshold)
     distance = 0;
@@ -334,6 +331,9 @@ void sendJSONConfig()
           break;
         case 179:
           docRetour[idBouton[i]] = "Tab";
+          break;
+        case 193:
+          docRetour[idBouton[i]] = "Caps Lock";
           break;
         case 215:
           docRetour[idBouton[i]] = "Flèche droite";
