@@ -289,8 +289,13 @@ void sendJSONConfig()
 {
   //Alloue un buffer pour l'objet JSON
   StaticJsonDocument<512> docRetour;
-  
+
   for(int i = 0; i < 14; i++)
+  {  
+    docRetour[idBouton[i]] = button[i];
+  }
+  
+  /*for(int i = 0; i < 14; i++)
   {   
     if(button[i] > 32 && button[i] < 128) //si la valeur du boutons est un simple caractère ASCCI
     {
@@ -354,7 +359,7 @@ void sendJSONConfig()
       
     }
       
-  }
+  }*/
 
     
   serializeJson(docRetour, Serial1);  //Sérialise le JSON et l'envoie sur le port Serial1
