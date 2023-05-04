@@ -6,4 +6,4 @@ Le programme dans le répertoire WriteEEPROM est le premier programme à téléc
 
 Par la suite, il faut programmer la dernière version de Full_controllerV(x) dans l'arduino afin d'avoir le programme qui fait fonctionner la manette et réceptionne les JSON envoyé par l'ESP8266.
 
-Le répertoire "ESP_MANETTE_WEB" contient les fichiers et documents que nous avons de besoin afin d'installer le programme de l'ESP8266 et les fichiers pour configurer le serveur web. 
+
