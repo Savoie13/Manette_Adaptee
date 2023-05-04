@@ -1,3 +1,3 @@
 # Documentation
-Ce dossier contient énormément de documentation concernant le projet de manette adaptée.
-Nous y retrouvons des images utilisées dans le projet, des powerpoints de nos présentations orales
+Ce dossier contient toute la documentation concernant le projet de manette adaptée.
+Nous y retrouvons la documentation technique du projet, des powerpoints de nos présentations orales, etc.
