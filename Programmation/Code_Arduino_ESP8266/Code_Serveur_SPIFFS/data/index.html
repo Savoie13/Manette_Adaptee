@@ -5,16 +5,16 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="author" content="jmer">
 		<link href="bootstrap.css" rel="stylesheet">
 		<link rel="icon" href="manette.png">
 		<script src="commands.js"></script>
 		<!-- I'm an HTML comment! -->
 		<script>window.onload = setupWebsocket</script>
 		<style type="text/css">
-			body {  background-color:black;	color:#444444;  text-align: center}
+			body {  background-color:rgb(26, 26, 26); text-align: center}
 			footer { color:lightslategray; font-size:xx-small}
-			h1 { color:aqua}
+			h1 { color:white}
+			h3 { color:white}
 			h4 { color:lightslategray}
 			.bleu
 			{
@@ -45,7 +45,33 @@
 			{
 				display: inline-block;
 			}
+			/* Réduire la taille de police et centrer les labels */
+			label {
+			font-size: 16px;
+			text-align: center;
+			}
 			
+			/* Réduire la largeur des menus déroulants */
+			select {
+			width: 100px;
+			}
+
+			#preset {
+			width: 250px;
+			}
+			/* On screens that are 600px or less, set the background color to olive */
+			@media screen and (max-width: 600px) {
+				label {
+					font-size: 12px;
+					text-align: left;
+				}
+				select {
+					width: 95px;
+					-moz-appearance: none;
+					-webkit-user-select: none;
+					border: none;
+					}
+			}
 		</style>
 	</head>
 
@@ -58,27 +84,64 @@
 			</nav>  
 		</div>
 		<br><br>
-		<h1 >Configuration de la manette adaptée</h1>
-		<h4 >Sélectionnez un bouton puis tapez une touche (et Entrer) ou choisissez une option</h4>
-		<select name="bouton" id="bouton">
-			<optgroup class="gris" label="Dessus"></optgroup>
-			<option class="bleu" value=1>Bleu</option>
-			<option class="rouge" value=2>Rouge</option>
-			<option class="vert" value=3>Vert</option>
-			<option value=4>Blanc</option>
-			<option class="jaune" value=5>Jaune</option>
-			<optgroup class="gris" label="Côté"></optgroup>
-			<option class="rouge" value=6>Rouge</option>
-			<option class="jaune" value=7>Jaune</option>
-			<option class="vert" value=8>Vert</option>
-			<option class="bleu" value=9>Bleu</option>
-			<optgroup class="gris" label="Auxiliaire"></optgroup>
-			<option class="gris" value=10>Aux. 1</option>
-			<option class="gris" value=11>Aux. 2</option>
+		<h1 >Configuration de la manette</h1>
+		<div style="color:lightslategray" id="output"></div>
+
+		<h3>Sélectionnez votre jeu</h3>
+        <select name="preset" id="preset">
+			<option class="gris" value = 0 ></option>
+			<option class="gris" value=1000>Défaut</option>
+			<option class="gris" value=1001>Farming Simulator 16</option>
+			<option class="gris" value=1002>Mario Bros Wii</option>
+            <option class="gris" value=1003>Call of Duty</option>
 		</select>
-		<input maxlength="1" style="color:#191992 background-color:#575758" id="commande" size="30">
-		<select name="speCar" id="special">
-			<option value = 27 >ESC</option>
+
+		<footer>
+			<p>Jackob B. et Mathis S. 2023</p>
+		</footer>
+		<h3 >ou</h3>	
+		<h3 >Sélectionnez vos boutons</h3>	
+		<h4 >Boutons du dessus</h4>
+		<label for="menuBleuD" style="color:rgb(0, 110, 255)" >Bleu :</label>
+		<select id="menuBleuD">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value =112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
 			<option value = 32 >ESPACE</option>
 			<option value = 1 >Clic Gauche</option>
 			<option value = 2 >Clic Droit</option>
@@ -95,48 +158,573 @@
 			<option value = 13 >Entrer</option>
 		</select>
 
+		<label for="menuRougeD" style="color:rgb(255, 0, 0)"  >Rouge :</label>
+		<select id="menuRougeD">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value =112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+            <option value = 4 >Clic Milieu</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+			<option value = 13 >Entrer</option>
+		</select>
 		<p> </p>
-
-		<div id="outer">
-			<div class="inner"><button id="savebtn" >Sauvegarder</button></div>
-			<div class="inner"><button id="backbtn">Annuler</button></div>
-			<div class="inner"><button id="refreshbtn">Afficher la liste des boutons</button></div>
-		</div>
-
-		<h4 style="color:aqua">Changement(s) enregistré(s)</h4>
-		<h1 style="color:aqua" class="counter-display">0</h1>
-
-		<div style="color:lightslategray" id="output"></div>
-
-		<h3 style="color:aqua" >Configurations de touches prédéfinies pour certains jeux</h3>
-        <select name="preset" id="preset">
-			<option class="gris" value=1000>Défaut</option>
-			<option class="gris" value=1001>Farming Simulator 16</option>
-			<option class="gris" value=1002>Mario Bros Wii</option>
-            <option class="gris" value=1003>Call of Duty</option>
+		<label for="menuVertD" style="color:rgb(26, 255, 0)"  >Vert :</label>
+		<select id="menuVertD">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value =112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+            <option value = 4 >Clic Milieu</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+			<option value = 13 >Entrer</option>
 		</select>
 
-		<footer>
-			<p>Jackob B. et Mathis S. 2023</p>
-		</footer>
+		<label for="menuJauneD" style="color:rgb(255, 238, 0)" >Jaune :</label>
+		<select id="menuJauneD">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value =112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+            <option value = 4 >Clic Milieu</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+			<option value = 13 >Entrer</option>
+		</select>
+		<p> </p>
+		<label for="menuBlancD" style="color:rgb(255, 255, 255)" >Blanc :</label>
+		<select id="menuBlancD">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value =112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+            <option value = 4 >Clic Milieu</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+			<option value = 13 >Entrer</option>
+		</select>
 
-		<h3 style="color:aqua" >Boutons du dessus</h3>
-		<h4 style="color:rgb(0, 110, 255)" id="bleu1">Bleu : </h4>
-		<h4 style="color:rgb(255, 0, 0)" id="rouge1">Rouge : </h4>
-		<h4 style="color:rgb(26, 255, 0)" id="vert1">Vert : </h4>
-		<h4 style="color:rgb(255, 255, 255)" id="blanc1">Blanc : </h4>
-		<h4 style="color:rgb(255, 238, 0)" id="jaune1">Jaune : </h4>
+		<h4 >Boutons sur les côtés</h4>
+		<label for="menuBleuC" style="color:rgb(0, 110, 255)" >Bleu :</label>
+		<select id="menuBleuC">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value =112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+            <option value = 4 >Clic Milieu</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+			<option value = 13 >Entrer</option>
+		</select>
 
-		<h3 style="color:aqua" >Boutons sur les côtés</h3>
-		<h4 style="color:rgb(0, 110, 255)" id="bleu2">Bleu : </h4>
-		<h4 style="color:rgb(255, 0, 0)" id="rouge2">Rouge : </h4>
-		<h4 style="color:rgb(26, 255, 0)" id="vert2">Vert : </h4>
-		<h4 style="color:rgb(255, 238, 0)" id="jaune2">Jaune : </h4>
+		<label for="menuRougeC" style="color:rgb(255, 0, 0)"  >Rouge :</label>
+		<select id="menuRougeC">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value =112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+            <option value = 4 >Clic Milieu</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+			<option value = 13 >Entrer</option>
+		</select>
+		<p> </p>
+		<label for="menuVertC" style="color:rgb(26, 255, 0)"  >Vert :</label>
+		<select id="menuVertC">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value =112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+            <option value = 4 >Clic Milieu</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+			<option value = 13 >Entrer</option>
+		</select>
 
-		<h3 style="color:aqua" >Auxiliaires</h3>
-		<h4 style="color:rgb(185, 185, 185);" id="aux1">Aux. 1 : </h4>
-		<h4 style="color:rgb(185, 185, 185);" id="aux2">Aux. 2 : </h4>
-		
+		<label for="menuJauneC" style="color:rgb(255, 238, 0)" >Jaune :</label>
+		<select id="menuJauneC">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value =112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+            <option value = 4 >Clic Milieu</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+			<option value = 13 >Entrer</option>
+		</select>
+
+		<h4 >Auxiliaires</h4>
+		<label for="menuAux1" style="color:rgb(255, 255, 255)" >Aux. 1 :</label>
+		<select id="menuAux1">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value = 112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+            <option value = 4 >Clic Milieu</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+			<option value = 13 >Entrer</option>
+		</select>
+
+		<label for="menuAux2" style="color:rgb(255, 255, 255)"  >Aux. 2 :</label>
+		<select id="menuAux2">
+			<option value = 0 ></option>
+			<option value = 97 >A</option>
+			<option value = 98 >B</option>
+			<option value = 99 >C</option>
+			<option value = 100 >D</option>
+			<option value = 101 >E</option>
+			<option value = 102 >F</option>
+			<option value = 103 >G</option>
+			<option value = 104 >H</option>
+			<option value = 105 >I</option>
+			<option value = 106 >J</option>
+			<option value = 107 >K</option>
+			<option value = 108 >L</option>
+			<option value = 109 >M</option>
+			<option value = 110 >N</option>
+			<option value = 111 >O</option>
+			<option value =112 >P</option>
+			<option value = 113 >Q</option>
+			<option value = 114 >R</option>
+			<option value = 115 >S</option>
+			<option value = 116 >T</option>
+			<option value = 117 >U</option>
+			<option value = 118 >V</option>
+			<option value = 119 >W</option>
+			<option value = 120 >X</option>
+			<option value = 121 >Y</option>
+			<option value = 122 >Z</option>
+			<option value = 48 >0</option>
+			<option value = 49 >1</option>
+			<option value = 50 >2</option>
+			<option value = 51 >3</option>
+			<option value = 52 >4</option>
+			<option value = 53 >5</option>
+			<option value = 54 >6</option>
+			<option value = 55 >7</option>
+			<option value = 56 >8</option>
+			<option value = 57 >9</option>
+			<option value = 177 >échapp.</option>
+			<option value = 32 >ESPACE</option>
+			<option value = 1 >Clic Gauche</option>
+			<option value = 2 >Clic Droit</option>
+            <option value = 4 >Clic Milieu</option>
+			<option value = 215 >Fleche &#8594;</option>
+			<option value = 216 >Fleche &#8592;</option>
+			<option value = 218 >Fleche &#8593;</option>
+			<option value = 217 >Fleche &#8595;</option>
+			<option value = 129 >Shift</option>
+			<option value = 128 >Ctrl</option>
+			<option value = 193 >Caps Lock</option>
+			<option value = 179 >Tab</option>
+			<option value = 178 >Backspace</option>
+			<option value = 13 >Entrer</option>
+		</select>
+
+		<h4 style="color:black">_</h4>
+
+		<div id="outer">
+			<div class="inner"><button id="refreshbtn">Afficher les boutons actuels</button></div>
+		</div>
 	</div> 	
 </body>
 </html>

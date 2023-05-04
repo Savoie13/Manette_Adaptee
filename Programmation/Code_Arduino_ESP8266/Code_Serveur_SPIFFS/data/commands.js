@@ -1,3 +1,24 @@
+/*
+Nom du fichier : commands.js
+Auteur : Jackob Breton 
+Date de création : 2023-02-06
+Description : La fonction setupWebsocket() initialise une connexion WebSocket vers un serveur distant
+ et définit plusieurs configurations de communication. Ensuite, elle définit plusieurs fonctions pour
+ traiter les événements qui se produisent sur la connexion WebSocket, tels que l'ouverture, la
+ fermeture, l'erreur et la réception de messages.
+
+ Lorsqu'un message est reçu, la fonction onmessage essaie de créer un objet JSON à partir de la chaîne
+ de caractères reçue. Si cela réussit, elle met à jour les valeurs des boutons dans l'interface utilisateur
+ en utilisant les données du JSON. Sinon, elle affiche simplement le texte brut dans la zone de sortie.
+
+ De plus, la fonction setupWebsocket() ajoute également un gestionnaire d'événements de clic sur un bouton
+ nommé refreshbtn. Lorsque ce bouton est cliqué, un objet JSON est créé et envoyé sur la connexion WebSocket.
+
+ Enfin, la fonction définit une série de fonctions qui sont appelées lorsqu'un élément spécifique de
+ l'interface utilisateur change, comme lorsqu'un utilisateur sélectionne une nouvelle valeur pour un menu
+ déroulant. Ces fonctions créent un objet JSON contenant les données pertinentes et les envoient via la
+ connexion WebSocket au serveur distant.
+*/
 function setupWebsocket() {
 
   var confdefaut = {1:100,2:115,3:119,4:32,5:97,6:2,7:113,8:1,9:101,10:178,11:13};
@@ -7,11 +28,11 @@ function setupWebsocket() {
 
   var wsUri = "ws://" + location.host + "/ws";
   ws = new WebSocket(wsUri);
-  ws.onopen = function(evt) { 
+  ws.onopen = function(evt) { // si 
     console.log('websock open'); 
     //ws.send("esp?\n");
   };
-  ws.onclose = function(evt) {
+  ws.onclose = function(evt) { // si le websocket est fermé...
     document.getElementById("output").innerHTML="Socket non connecté";	
     console.log('websock close'); 
   };
@@ -23,19 +44,20 @@ function setupWebsocket() {
       try {
         // essai de créer un objet JSON 
         var jsonObject = JSON.parse(evt.data);
-        document.getElementById("bleu1").innerHTML = "Bleu : " + jsonObject.b1;
-        document.getElementById("rouge1").innerHTML = "Rouge : " + jsonObject.b2;
-        document.getElementById("vert1").innerHTML = "Vert :  : " + jsonObject.b3;
-        document.getElementById("blanc1").innerHTML = "Blanc : " + jsonObject.b4;
-        document.getElementById("jaune1").innerHTML = "Jaune : " + jsonObject.b5;
+		// affiche la valeur du bouton selon la valeur du JSON
+        document.getElementById("menuBleuD").value = jsonObject.b1;
+        document.getElementById("menuRougeD").value = jsonObject.b2;
+        document.getElementById("menuVertD").value = jsonObject.b3;
+        document.getElementById("menuBlancD").value = jsonObject.b4;
+        document.getElementById("menuJauneD").value = jsonObject.b5;
 
-        document.getElementById("bleu2").innerHTML = "Bleu : " + jsonObject.b9;
-        document.getElementById("rouge2").innerHTML = "Rouge : " + jsonObject.b6;
-        document.getElementById("vert2").innerHTML = "Vert : " + jsonObject.b8;
-        document.getElementById("jaune2").innerHTML = "Jaune : " + jsonObject.b7;
+        document.getElementById("menuBleuC").value = jsonObject.b9;
+        document.getElementById("menuRougeC").value = jsonObject.b6;
+        document.getElementById("menuVertC").value = jsonObject.b8;
+        document.getElementById("menuJauneC").value = jsonObject.b7;
 
-        document.getElementById("aux1").innerHTML = "Aux. 1 : " + jsonObject.b10;
-        document.getElementById("aux2").innerHTML = "Aux. 2 : " + jsonObject.b11;
+        document.getElementById("menuAux1").value = jsonObject.b10;
+        document.getElementById("menuAux2").value = jsonObject.b11;
       }
       catch( e ) {
         // pas du json  
@@ -46,75 +68,176 @@ function setupWebsocket() {
       }		
 	  }    	
   };	
-  let counterDisplayElem = document.querySelector('.counter-display');
-  let count = 0;
 
-  commande.addEventListener('keydown', keyGotPressed, false);
-  function keyGotPressed (e){
-    var charCode = e.keyCode;
-    var valeur = document.getElementById('commande');
-    var bouton = document.getElementById('bouton');
-    var valueTouche = valeur.value;
-    var strValue = valueTouche.charCodeAt(0);
-    var valueBtn = bouton.value;
-    var strBtn = parseInt(valueBtn);
-    const obj = {id:strBtn,valeur:strValue};
-    const myJSON = JSON.stringify(obj);
-    if((charCode==13) && containsOnlyNumbers(strValue) == true){
-        updateDisplay();
-        console.log(myJSON);
-        ws.send(myJSON+"\n");
-        clearfct();
-    }
-  };
-
-  const save_element = document.getElementById("savebtn");
-  save_element.addEventListener("click", save);
-  function save (){
-    var valeur = document.getElementById('commande');
-    var bouton = document.getElementById('bouton');
-    var valueTouche = valeur.value;
-    var strValue = valueTouche.charCodeAt(0);
-    var valueBtn = bouton.value;
-    var strBtn = parseInt(valueBtn);
-    const obj = {id:strBtn,valeur:strValue};
-    const myJSON = JSON.stringify(obj);
-    if(containsOnlyNumbers(strValue) == true){
-        updateDisplay();
-        console.log(myJSON);
-        ws.send(myJSON+"\n");
-        clearfct();
-    }
-  };
-
-  const back_element = document.getElementById("backbtn");
-  back_element.addEventListener("click", clearfct);
-  function clearfct (){
-    document.getElementById('commande').value = "";
-  };
-
-  const refresh_element = document.getElementById("refreshbtn");
-  refresh_element.addEventListener("click", refreshfct);
+  // permet d'envoyer une requête à l'arduino Pro Micro pour afficher la liste des boutons sur le site web.
+  const refresh_element = document.getElementById("refreshbtn"); // l'élément du bouton est dans cette variable.
+  refresh_element.addEventListener("click", refreshfct); // si le bouton est appuyé...
   function refreshfct (){
-    const obj = {id:999,valeur:999};
-    const myJSON = JSON.stringify(obj);
-    updateDisplay();
+    const obj = {id:999,valeur:999}; // met cette valeur dans l'obj JSON
+    const myJSON = JSON.stringify(obj); // tranforme l'objet en objet JSON
+    console.log(myJSON); // affiche le message
+    ws.send(myJSON+"\n"); // envoie le message
+  };
+
+  // Pour les 11 fonctions suivante, les commantaires sont les mêmes. C'est la même fonction
+  // pour chacunes des différentes "dropbars". 
+  
+  var spe = document.getElementById("menuBleuD"); // Obtient l'élément du menu bleu avec l'id "menuBleuD"
+  spe.addEventListener("change", selectBleuD, false); // Ajoute un événement de changement à l'élément "menuBleuD" qui appelle la fonction selectBleuD
+  // La fonction selectBleuD est appelée lorsqu'un changement est apporté à l'élément "menuBleuD"
+  function selectBleuD (){
+	// Obtient la valeur de l'élément "menuBleuD"
+    var valeur = document.getElementById('menuBleuD');
+	// Convertit la valeur en un entier à l'aide de parseInt
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+	// Définit la valeur du bouton à 1 (pour bouton bleu) et la convertit également en entier
+    var valueBtn = 1;
+    var strBtn = parseInt(valueBtn);
+	
+    const obj = {id:strBtn,valeur:strValue};    // Crée un objet qui contient les valeurs de l'ID du bouton et de la valeur sélectionnée
+    const myJSON = JSON.stringify(obj);     // Convertit l'objet en JSON
+    // Envoie la chaîne JSON au serveur en utilisant WebSockets
     console.log(myJSON);
     ws.send(myJSON+"\n");
   };
 
-  var spe = document.getElementById("special");
-  spe.addEventListener("change", selectOption, false);
-  function selectOption (){
-    var valeur = document.getElementById('special');
-    var bouton = document.getElementById('bouton');
+  var spe = document.getElementById("menuRougeD");
+  spe.addEventListener("change", selectRougeD, false);
+  function selectRougeD (){
+    var valeur = document.getElementById('menuRougeD');
     var specialVal = valeur.value;
     var strValue = parseInt(specialVal);
-    var valueBtn = bouton.value;
+    var valueBtn = 2;
     var strBtn = parseInt(valueBtn);
     const obj = {id:strBtn,valeur:strValue};
     const myJSON = JSON.stringify(obj);
-    updateDisplay();
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+
+  var spe = document.getElementById("menuVertD");
+  spe.addEventListener("change", selectVertD, false);
+  function selectVertD (){
+    var valeur = document.getElementById('menuVertD');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 3;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+
+  var spe = document.getElementById("menuBlancD");
+  spe.addEventListener("change", selectBlancD, false);
+  function selectBlancD (){
+    var valeur = document.getElementById('menuBlancD');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 4;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+
+  var spe = document.getElementById("menuJauneD");
+  spe.addEventListener("change", selectJauneD, false);
+  function selectJauneD (){
+    var valeur = document.getElementById('menuJauneD');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 5;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+
+  var spe = document.getElementById("menuBleuC");
+  spe.addEventListener("change", selectBleuC, false);
+  function selectBleuC (){
+    var valeur = document.getElementById('menuBleuC');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 9;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+
+  var spe = document.getElementById("menuRougeC");
+  spe.addEventListener("change", selectRougeC, false);
+  function selectRougeC (){
+    var valeur = document.getElementById('menuRougeC');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 6;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+
+  var spe = document.getElementById("menuVertC");
+  spe.addEventListener("change", selectVertC, false);
+  function selectVertC (){
+    var valeur = document.getElementById('menuVertC');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 8;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+
+  var spe = document.getElementById("menuJauneC");
+  spe.addEventListener("change", selectJauneC, false);
+  function selectJauneC (){
+    var valeur = document.getElementById('menuJauneC');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 7;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+
+  var spe = document.getElementById("menuAux1");
+  spe.addEventListener("change", selectAux1, false);
+  function selectAux1 (){
+    var valeur = document.getElementById('menuAux1');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 10;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+
+  var spe = document.getElementById("menuAux2");
+  spe.addEventListener("change", selectAux2, false);
+  function selectAux2 (){
+    var valeur = document.getElementById('menuAux2');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 11;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
     console.log(myJSON);
     ws.send(myJSON+"\n");
   };
@@ -133,19 +256,9 @@ function setupWebsocket() {
     if(specialVal == 1003)
       var strValue = confCOD;
     const myJSON = JSON.stringify(strValue);
-    updateDisplay();
     console.log(myJSON);
     ws.send(myJSON+"\n");
   };
-
-  function updateDisplay(){
-    count++;
-    counterDisplayElem.innerHTML = count;
-  };
-
-  function containsOnlyNumbers(str) {
-    return /^[0-9]+$/.test(str);
-  }
 };
 
 
