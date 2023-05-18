@@ -30,7 +30,7 @@ function setupWebsocket() {
   ws = new WebSocket(wsUri);
   ws.onopen = function(evt) { // si 
     console.log('websock open'); 
-    //ws.send("esp?\n");
+    refreshfct();
   };
   ws.onclose = function(evt) { // si le websocket est fermé...
     document.getElementById("output").innerHTML="Socket non connecté";	
@@ -58,6 +58,9 @@ function setupWebsocket() {
 
         document.getElementById("menuAux1").value = jsonObject.b10;
         document.getElementById("menuAux2").value = jsonObject.b11;
+		document.getElementById("menuAux3").value = jsonObject.b12;
+		document.getElementById("menuAux4").value = jsonObject.b13;
+		document.getElementById("menuAux5").value = jsonObject.b14;
       }
       catch( e ) {
         // pas du json  
@@ -235,6 +238,48 @@ function setupWebsocket() {
     var specialVal = valeur.value;
     var strValue = parseInt(specialVal);
     var valueBtn = 11;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+  
+  var spe = document.getElementById("menuAux3");
+  spe.addEventListener("change", selectAux3, false);
+  function selectAux3 (){
+    var valeur = document.getElementById('menuAux3');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 12;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+  
+  var spe = document.getElementById("menuAux4");
+  spe.addEventListener("change", selectAux4, false);
+  function selectAux4 (){
+    var valeur = document.getElementById('menuAux4');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 13;
+    var strBtn = parseInt(valueBtn);
+    const obj = {id:strBtn,valeur:strValue};
+    const myJSON = JSON.stringify(obj);
+    console.log(myJSON);
+    ws.send(myJSON+"\n");
+  };
+  
+  var spe = document.getElementById("menuAux5");
+  spe.addEventListener("change", selectAux5, false);
+  function selectAux5 (){
+    var valeur = document.getElementById('menuAux5');
+    var specialVal = valeur.value;
+    var strValue = parseInt(specialVal);
+    var valueBtn = 14;
     var strBtn = parseInt(valueBtn);
     const obj = {id:strBtn,valeur:strValue};
     const myJSON = JSON.stringify(obj);
